@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    // --- Configurações Base ---
+    "module": "Node16", // Módulos ES para compatibilidade com Node.js v18+
+    "target": "ES2021", // Alvo mais moderno, mantendo compatibilidade com Node.js v18+
+    "sourceMap": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "incremental": true,
+
+    // --- Interoperabilidade de Módulos ---
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true, // Essencial para interoperabilidade entre CommonJS e ES Modules
+    "resolveJsonModule": true, // Permite a importação de módulos .json
+    "moduleResolution": "node16", // Estratégia de resolução de módulos moderna para Node.js
+
+    // --- Verificações Estritas (Recomendado) ---
+    "strict": true, // Habilita todas as opções de verificação estrita
+    "noImplicitAny": true, // Garante que tudo tenha um tipo
+    "strictPropertyInitialization": false, // Desativa a verificação de inicialização de propriedades
+    "forceConsistentCasingInFileNames": true,
+
+    // --- Configurações do NestJS ---
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+
+    // --- Outras Opções ---
+    "declaration": true,
+    "removeComments": true,
+    "skipLibCheck": true // Útil para evitar erros de tipo em dependências
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

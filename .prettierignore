@@ -1,0 +1,12 @@
+# Dependencies and build outputs
+node_modules/
+.next/
+dist/
+coverage/
+openspec/
+.codex/
+.agents/
+.gemini/
+
+# Framework-generated files
+**/next-env.d.ts
