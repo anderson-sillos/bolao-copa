@@ -156,7 +156,7 @@ Enquanto houver apenas um mantenedor, revisão externa não é obrigatória, mas
 todos os checks são. Ao adicionar colaboradores, configure pelo menos uma
 aprovação e descarte aprovações quando novos commits forem enviados.
 
-Após criar o repositório GitHub, proteja a `main` com:
+O repositório oficial está configurado para proteger a `main` com:
 
 - pull request obrigatório;
 - merge commit e rebase merge desabilitados; squash merge habilitado;
