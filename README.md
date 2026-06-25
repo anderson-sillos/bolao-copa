@@ -221,6 +221,10 @@ Localmente, `npm run ci` permanece como contrato principal. O uso opcional do
 `act` para simular a orquestração do GitHub Actions está registrado como evolução
 futura no guia de contribuição.
 
+A `main` exige pull request, histórico linear e os checks `Metadata` e
+`Validate`. O repositório aceita somente squash merge e remove a branch após a
+integração.
+
 ## Docker
 
 Além do PostgreSQL, o projeto possui imagens independentes para frontend e

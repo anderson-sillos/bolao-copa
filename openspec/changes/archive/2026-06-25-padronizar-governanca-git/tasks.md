@@ -16,7 +16,7 @@
 - [x] 3.2 Adicionar job de metadados para branch e título de pull request.
 - [x] 3.3 Documentar regras de proteção a configurar no GitHub.
 - [x] 3.4 Registrar `npm run ci` como fluxo local principal e o `act` como evolução opcional.
-- [ ] 3.5 Configurar o repositório público, squash merge e proteção da `main` no GitHub.
+- [x] 3.5 Configurar o repositório público, squash merge e proteção da `main` no GitHub.
 
 ## 4. Verificação
 
