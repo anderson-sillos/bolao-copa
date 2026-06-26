@@ -32,9 +32,9 @@ executável com a versão TypeScript adotada pela toolchain.
 ### Requirement: Conexão PostgreSQL configurável
 
 O backend SHALL configurar e validar a conexão PostgreSQL por variáveis de
-ambiente usando TypeORM. A aplicação NestJS, a CLI de migrations e o seed SHALL
-usar uma estratégia de ambiente compatível. A origem permitida pelo CORS e a
-porta HTTP SHALL ser configuráveis por ambiente.
+ambiente usando a versão TypeORM adotada. A aplicação NestJS, a CLI de
+migrations e o seed SHALL usar uma estratégia de ambiente compatível. A origem
+permitida pelo CORS e a porta HTTP SHALL ser configuráveis por ambiente.
 
 #### Scenario: Inicialização com credenciais válidas
 
@@ -103,8 +103,8 @@ uma página inicial renderizável e URL do backend configurável por ambiente.
 ### Requirement: Verificação automatizada da fundação
 
 O projeto SHALL fornecer uma suíte de integração executável pela raiz para
-validar a fundação e a compatibilidade da toolchain, incluindo configuração e
-health check.
+validar a fundação e a compatibilidade da toolchain e da versão TypeORM adotada,
+incluindo configuração e health check.
 
 #### Scenario: Execução da suíte de integração
 
