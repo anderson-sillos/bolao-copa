@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     // --- Configurações Base ---
-    "module": "Node16", // Módulos ES para compatibilidade com Node.js v18+
-    "target": "ES2021", // Alvo mais moderno, mantendo compatibilidade com Node.js v18+
+    "module": "Node16", // Compatível com o runtime Node.js 24 do projeto
+    "target": "ES2022", // Recursos estáveis suportados pelo Node.js 24
     "sourceMap": true,
     "outDir": "./dist",
     "rootDir": "./src",
@@ -12,7 +12,8 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true, // Essencial para interoperabilidade entre CommonJS e ES Modules
     "resolveJsonModule": true, // Permite a importação de módulos .json
-    "moduleResolution": "node16", // Estratégia de resolução de módulos moderna para Node.js
+    "moduleResolution": "node16", // Resolução coerente com módulos Node16
+    "types": ["node"],
 
     // --- Verificações Estritas (Recomendado) ---
     "strict": true, // Habilita todas as opções de verificação estrita

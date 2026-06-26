@@ -6,7 +6,7 @@
     "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
-    "lint:check": "eslint .",
+    "lint:check": "eslint . --max-warnings=0",
     "lint": "eslint . --fix",
     "format": "prettier --write ."
   },

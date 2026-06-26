@@ -10,6 +10,8 @@ Repositório: https://github.com/anderson-sillos/bolao-copa
 
 - Node.js 24.18.0 LTS
 - npm 11+
+- TypeScript 6
+- ESLint 10 com flat config
 - Next.js 16 e React 19
 - NestJS 11
 - TypeORM
@@ -198,11 +200,19 @@ Cada resposta contém `X-Request-Id`. Um identificador válido enviado pelo
 cliente é preservado; caso contrário, a API gera um UUID. O log HTTP registra o
 identificador, método, caminho, status e duração da requisição.
 
+Os comandos TypeORM e o seed carregam o `.env` local pela API nativa
+`process.loadEnvFile` do Node.js 24. Variáveis já fornecidas pelo ambiente, como
+na CI ou no Docker, têm precedência. O projeto não mantém dependência direta de
+`dotenv` nesse fluxo.
+
 ## Hooks locais
 
 O comando `npm install` configura o hook de pre-commit com Husky. Antes do
 commit, lint-staged executa ESLint e Prettier somente nos arquivos staged. A CI
 continua sendo a validação definitiva.
+
+O lint usa `eslint.config.cjs` no formato flat config. A mesma configuração é
+usada pela raiz, workspaces, lint-staged e GitHub Actions.
 
 ## Integração contínua
 

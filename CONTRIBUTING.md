@@ -5,7 +5,8 @@ https://github.com/anderson-sillos/bolao-copa
 
 ## Preparação
 
-1. Use Node.js 24.18.0 e npm 11 ou superior.
+1. Use Node.js 24.18.0, npm 11 ou superior e as versões TypeScript/ESLint
+   registradas no lockfile.
 2. Execute `npm install`.
 3. Copie os arquivos `.env.example` necessários.
 4. Inicie o PostgreSQL com `docker compose up -d postgres`.
@@ -118,6 +119,10 @@ validar manualmente a cobertura unitária:
 ```bash
 npm run test:coverage
 ```
+
+O lint é centralizado no flat config `eslint.config.cjs`. Não crie arquivos
+`.eslintrc*` nos workspaces; diferenças de ambiente ou linguagem devem ser
+declaradas como blocos adicionais no flat config da raiz.
 
 ### Plano futuro: execução com `act`
 
