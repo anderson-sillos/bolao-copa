@@ -23,7 +23,7 @@ build, testes e execução agregada da validação contínua.
 
 O repositório SHALL executar o contrato de qualidade automaticamente em pushes e
 pull requests, SHALL validar os metadados de controle de versão e SHALL instalar
-a toolchain sem ignorar incompatibilidades.
+a toolchain sem ignorar incompatibilidades de dependências.
 
 #### Scenario: Validação de pull request
 

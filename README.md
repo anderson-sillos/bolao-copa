@@ -14,7 +14,7 @@ Repositório: https://github.com/anderson-sillos/bolao-copa
 - ESLint 10 com flat config
 - Next.js 16 e React 19
 - NestJS 11
-- TypeORM
+- TypeORM 1.0
 - PostgreSQL 15
 - Docker Compose
 
@@ -204,6 +204,10 @@ Os comandos TypeORM e o seed carregam o `.env` local pela API nativa
 `process.loadEnvFile` do Node.js 24. Variáveis já fornecidas pelo ambiente, como
 na CI ou no Docker, têm precedência. O projeto não mantém dependência direta de
 `dotenv` nesse fluxo.
+
+O backend usa TypeORM 1.0 com `@nestjs/typeorm` 11.0.1 ou superior. A
+compatibilidade esperada inclui build, migrations, rollback, seed e verificação
+de drift de schema sem uso de `--force` ou `--legacy-peer-deps`.
 
 ## Hooks locais
 
