@@ -83,6 +83,8 @@ DB_DATABASE=bolao_copa
 PORT=3000
 CORS_ORIGIN=http://localhost:3001
 API_DOCS_ENABLED=true
+AUTH_JWT_SECRET=troque-este-segredo-local-com-mais-de-32-caracteres
+AUTH_TOKEN_EXPIRES_IN=1h
 ```
 
 O frontend usa:
@@ -125,13 +127,14 @@ npm run dev --workspace=frontend
 
 Serviços locais:
 
-| Serviço    | Endereço                     |
-| ---------- | ---------------------------- |
-| Frontend   | http://localhost:3001        |
-| Backend    | http://localhost:3000        |
-| Health     | http://localhost:3000/health |
-| OpenAPI    | http://localhost:3000/docs   |
-| PostgreSQL | localhost:5432               |
+| Serviço    | Endereço                        |
+| ---------- | ------------------------------- |
+| Frontend   | http://localhost:3001           |
+| Backend    | http://localhost:3000           |
+| Health     | http://localhost:3000/health    |
+| Swagger UI | http://localhost:3000/docs      |
+| OpenAPI    | http://localhost:3000/docs-json |
+| PostgreSQL | localhost:5432                  |
 
 ## Comandos principais
 
@@ -182,6 +185,8 @@ workspaces e usa um banco isolado chamado `bolao_copa_test`. A suíte valida:
 - seed de grupos, seleções e jogos;
 - restrição de um palpite por usuário e jogo;
 - resposta HTTP do backend;
+- cadastro, login, token JWT e rota protegida de perfil;
+- documentação OpenAPI e carregamento da Swagger UI local;
 - renderização da página inicial do frontend.
 
 O banco de teste é removido automaticamente ao final.
@@ -190,11 +195,45 @@ O banco de teste é removido automaticamente ao final.
 lint, builds, cobertura unitária, testes de integração e auditoria de
 dependências.
 
+## Autenticação da API
+
+A API possui autenticação inicial por JWT bearer:
+
+- `POST /auth/register`: cria usuário e retorna automaticamente um access token;
+- `POST /auth/login`: autentica por e-mail e senha;
+- `GET /auth/me`: retorna o perfil do usuário autenticado.
+
+O cadastro exige senha com pelo menos 8 caracteres, contendo letras e números, e
+rejeita senha igual ao nome ou e-mail normalizados. Senhas são armazenadas apenas
+como hash Argon2id. Respostas públicas de usuário não expõem `password_hash`.
+
+Tokens usam `AUTH_JWT_SECRET` e expiram conforme `AUTH_TOKEN_EXPIRES_IN`; o valor
+padrão recomendado para desenvolvimento é `1h`. Use um segredo forte, único por
+ambiente, com pelo menos 32 caracteres.
+
+Exemplo de cadastro:
+
+```bash
+curl -X POST http://localhost:3000/auth/register \
+  -H 'Content-Type: application/json' \
+  -d '{"name":"Anderson Martins","email":"anderson@example.com","password":"Bolao2026"}'
+```
+
+Exemplo de rota protegida:
+
+```bash
+curl http://localhost:3000/auth/me \
+  -H "Authorization: Bearer <access-token>"
+```
+
 ## Segurança, documentação e logs
 
 O backend aplica cabeçalhos HTTP seguros com Helmet e não divulga o cabeçalho
-`X-Powered-By`. Quando `API_DOCS_ENABLED=true`, a documentação fica disponível
-em `/docs` e o documento OpenAPI em `/docs-json`.
+`X-Powered-By`.
+
+Quando `API_DOCS_ENABLED=true`, a documentação fica disponível em `/docs` com
+Swagger UI carregado por dependência local, e o documento OpenAPI fica disponível
+em `/docs-json`.
 
 Cada resposta contém `X-Request-Id`. Um identificador válido enviado pelo
 cliente é preservado; caso contrário, a API gera um UUID. O log HTTP registra o
@@ -322,14 +361,18 @@ O resultado esperado é `No changes in database schema were found`.
 
 ## Estado atual
 
-A fundação executável está pronta, mas estes itens ainda não fazem parte do
-escopo implementado:
+A fundação executável está pronta com frontend, backend, banco, migração, seed,
+CI, documentação OpenAPI e autenticação inicial por JWT.
 
-- autenticação e autorização;
-- endpoints de cadastro e login;
+Estes itens ainda não fazem parte do escopo implementado:
+
 - regras de pontuação;
 - interface final do bolão;
-- pipeline de CI/CD.
+- refresh token e cookies HTTP-only;
+- login social via OAuth, MFA e políticas avançadas de segurança;
+- rate limiting, lockout e auditoria de tentativas de login.
+
+As evoluções adiadas estão registradas no [roadmap](docs/roadmap.md).
 
 ## OpenSpec
 
