@@ -13,8 +13,8 @@
     "migration:run": "npm run typeorm -- migration:run",
     "migration:revert": "npm run typeorm -- migration:revert",
     "seed": "ts-node src/seed/seed.ts",
-    "lint:check": "eslint \"{src,apps,libs,test}/**/*.ts\"",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "lint:check": "eslint src --max-warnings=0",
+    "lint": "eslint src --fix",
     "format": "prettier --write \"src/**/*.ts\""
   },
   "dependencies": {
@@ -30,7 +30,7 @@
   "devDependencies": {
     "@nestjs/cli": "^11.0.23",
     "@types/express": "^5.0.6",
-    "dotenv": "^16.4.5",
+    "@types/node": "^24.13.2",
     "ts-node": "^10.9.2"
   }
 }

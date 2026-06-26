@@ -1,5 +1,7 @@
 const assert = require('node:assert/strict');
+const { mkdtempSync, rmSync, writeFileSync } = require('node:fs');
 const { test } = require('node:test');
+const { tmpdir } = require('node:os');
 const path = require('node:path');
 
 process.env.TS_NODE_PROJECT = path.join(
@@ -11,6 +13,9 @@ require('ts-node/register');
 const {
   validateEnvironment,
 } = require('../../apps/backend/src/config/environment');
+const {
+  loadLocalEnvironment,
+} = require('../../apps/backend/src/config/load-local-environment');
 
 const validEnvironment = {
   DB_HOST: 'localhost',
@@ -76,4 +81,31 @@ test('rejeita origem CORS e booleano inválidos', () => {
       }),
     /API_DOCS_ENABLED/,
   );
+});
+
+test('carrega .env local sem sobrescrever variáveis já fornecidas', () => {
+  const directory = mkdtempSync(path.join(tmpdir(), 'bolao-env-'));
+  const environmentFile = path.join(directory, '.env');
+  const preservedValue = process.env.DB_HOST;
+
+  writeFileSync(
+    environmentFile,
+    'DB_HOST=arquivo-local\nTOOLCHAIN_ENV_TEST=carregado\n',
+  );
+  process.env.DB_HOST = 'ambiente-ci';
+  delete process.env.TOOLCHAIN_ENV_TEST;
+
+  try {
+    loadLocalEnvironment(environmentFile);
+    assert.equal(process.env.DB_HOST, 'ambiente-ci');
+    assert.equal(process.env.TOOLCHAIN_ENV_TEST, 'carregado');
+  } finally {
+    if (preservedValue === undefined) {
+      delete process.env.DB_HOST;
+    } else {
+      process.env.DB_HOST = preservedValue;
+    }
+    delete process.env.TOOLCHAIN_ENV_TEST;
+    rmSync(directory, { recursive: true, force: true });
+  }
 });

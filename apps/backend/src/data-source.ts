@@ -1,12 +1,12 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { config } from 'dotenv';
 import { User } from './entities/user.entity';
 import { Team } from './entities/team.entity';
 import { Game } from './entities/game.entity';
 import { Bet } from './entities/bet.entity';
 import { Group } from './entities/group.entity';
+import { loadLocalEnvironment } from './config/load-local-environment';
 
-config(); // Carrega as variáveis do .env
+loadLocalEnvironment();
 
 export const dataSourceOptions: DataSourceOptions = {
   type: 'postgres',
