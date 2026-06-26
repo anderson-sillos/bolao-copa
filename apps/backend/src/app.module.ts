@@ -13,6 +13,7 @@ import { HealthController } from './health/health.controller';
 import { HealthService } from './health/health.service';
 import { RequestContextMiddleware } from './common/request-context.middleware';
 import { DocsController } from './docs/docs.controller';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { DocsController } from './docs/docs.controller';
         synchronize: false, // `false` em produção, usaremos migrações
       }),
     }),
+    AuthModule,
   ],
   controllers: [AppController, HealthController, DocsController],
   providers: [AppService, HealthService],

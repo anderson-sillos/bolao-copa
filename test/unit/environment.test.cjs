@@ -24,7 +24,20 @@ const validEnvironment = {
   DB_PASSWORD: 'secret',
   DB_DATABASE: 'bolao_copa',
   CORS_ORIGIN: 'http://localhost:3001',
+  AUTH_JWT_SECRET: 'segredo-local-de-teste-com-mais-de-32-caracteres',
+  AUTH_TOKEN_EXPIRES_IN: '1h',
 };
+
+function createTemporaryDirectory(prefix) {
+  try {
+    return mkdtempSync(path.join(tmpdir(), prefix));
+  } catch (error) {
+    if (error.code === 'EROFS') {
+      return mkdtempSync(path.join('/tmp', prefix));
+    }
+    throw error;
+  }
+}
 
 test('normaliza uma configuração válida e aplica valores padrão', () => {
   assert.deepEqual(validateEnvironment(validEnvironment), {
@@ -36,6 +49,8 @@ test('normaliza uma configuração válida e aplica valores padrão', () => {
     PORT: 3000,
     CORS_ORIGIN: 'http://localhost:3001',
     API_DOCS_ENABLED: false,
+    AUTH_JWT_SECRET: 'segredo-local-de-teste-com-mais-de-32-caracteres',
+    AUTH_TOKEN_EXPIRES_IN: '1h',
   });
 });
 
@@ -48,6 +63,25 @@ test('aceita porta e documentação configuradas explicitamente', () => {
 
   assert.equal(environment.PORT, 3100);
   assert.equal(environment.API_DOCS_ENABLED, true);
+});
+
+test('rejeita segredo JWT fraco e expiração inválida', () => {
+  assert.throws(
+    () =>
+      validateEnvironment({
+        ...validEnvironment,
+        AUTH_JWT_SECRET: 'curto',
+      }),
+    /AUTH_JWT_SECRET/,
+  );
+  assert.throws(
+    () =>
+      validateEnvironment({
+        ...validEnvironment,
+        AUTH_TOKEN_EXPIRES_IN: '1 hora',
+      }),
+    /AUTH_TOKEN_EXPIRES_IN/,
+  );
 });
 
 test('rejeita variáveis obrigatórias vazias', () => {
@@ -84,7 +118,7 @@ test('rejeita origem CORS e booleano inválidos', () => {
 });
 
 test('carrega .env local sem sobrescrever variáveis já fornecidas', () => {
-  const directory = mkdtempSync(path.join(tmpdir(), 'bolao-env-'));
+  const directory = createTemporaryDirectory('bolao-env-');
   const environmentFile = path.join(directory, '.env');
   const preservedValue = process.env.DB_HOST;
 

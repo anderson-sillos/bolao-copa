@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
 import helmet from 'helmet';
@@ -9,6 +10,13 @@ async function bootstrap() {
 
   const config = app.get(ConfigService<Environment, true>);
   app.use(helmet());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      forbidNonWhitelisted: true,
+      transform: true,
+      whitelist: true,
+    }),
+  );
   app.enableCors({
     origin: config.get('CORS_ORIGIN', { infer: true }),
   });

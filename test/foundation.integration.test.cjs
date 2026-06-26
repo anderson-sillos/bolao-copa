@@ -1,4 +1,5 @@
 const assert = require('node:assert/strict');
+const { createHmac } = require('node:crypto');
 const { execFileSync, spawn } = require('node:child_process');
 const { after, before, test } = require('node:test');
 const { setTimeout: delay } = require('node:timers/promises');
@@ -17,6 +18,7 @@ const { HealthService } = require('../apps/backend/src/health/health.service');
 const testDatabase = 'bolao_copa_test';
 const backendPort = 3100;
 const frontendPort = 3101;
+const authJwtSecret = 'segredo-de-integracao-com-mais-de-32-caracteres';
 
 const databaseConfig = {
   host: process.env.DB_HOST || 'localhost',
@@ -36,6 +38,8 @@ const testEnvironment = {
   CORS_ORIGIN: `http://localhost:${frontendPort}`,
   NEXT_PUBLIC_API_URL: `http://localhost:${backendPort}`,
   API_DOCS_ENABLED: 'true',
+  AUTH_JWT_SECRET: authJwtSecret,
+  AUTH_TOKEN_EXPIRES_IN: '1h',
   NODE_ENV: 'test',
 };
 
@@ -98,6 +102,23 @@ function startProcess(command, args, environment = testEnvironment) {
   return child;
 }
 
+function base64Url(input) {
+  return Buffer.from(JSON.stringify(input)).toString('base64url');
+}
+
+function signExpiredToken(payload) {
+  const header = base64Url({ alg: 'HS256', typ: 'JWT' });
+  const body = base64Url({
+    ...payload,
+    iat: Math.floor(Date.now() / 1000) - 7200,
+    exp: Math.floor(Date.now() / 1000) - 3600,
+  });
+  const signature = createHmac('sha256', authJwtSecret)
+    .update(`${header}.${body}`)
+    .digest('base64url');
+  return `${header}.${body}.${signature}`;
+}
+
 function stopProcess(child) {
   if (!child || child.exitCode !== null) {
     return;
@@ -137,6 +158,16 @@ async function waitForUrl(url, child, timeoutMs = 30_000) {
   }
 
   throw new Error(`Timeout aguardando ${url}:\n${output}`);
+}
+
+async function postJson(url, body) {
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
 }
 
 before(async () => {
@@ -194,6 +225,8 @@ test('configuração inválida falha antes da inicialização', () => {
         DB_PASSWORD: '',
         DB_DATABASE: testDatabase,
         CORS_ORIGIN: `http://localhost:${frontendPort}`,
+        AUTH_JWT_SECRET: authJwtSecret,
+        AUTH_TOKEN_EXPIRES_IN: '1h',
       }),
     /DB_PASSWORD/,
   );
@@ -306,6 +339,110 @@ test('backend responde na rota raiz', async () => {
     const openApi = await docsResponse.json();
     assert.equal(openApi.openapi, '3.0.3');
     assert.ok(openApi.paths['/health']);
+    assert.ok(openApi.paths['/auth/register']);
+    assert.ok(openApi.components.securitySchemes.bearerAuth);
+
+    const docsHtmlResponse = await fetch(
+      `http://localhost:${backendPort}/docs`,
+    );
+    assert.equal(docsHtmlResponse.status, 200);
+    const docsHtml = await docsHtmlResponse.text();
+    assert.match(docsHtml, /SwaggerUIBundle/);
+    assert.match(docsHtml, /\/docs-json/);
+
+    const docsAssetResponse = await fetch(
+      `http://localhost:${backendPort}/docs/swagger-ui-bundle.js`,
+    );
+    assert.equal(docsAssetResponse.status, 200);
+    assert.match(
+      docsAssetResponse.headers.get('content-type'),
+      /application\/javascript/,
+    );
+
+    const suffix = Date.now();
+    const authBase = `http://localhost:${backendPort}/auth`;
+    const registerPayload = {
+      name: 'Usuário Autenticado',
+      email: `usuario-autenticado-${suffix}@example.com`,
+      password: 'Bolao2026',
+    };
+
+    const weakPasswordResponse = await postJson(`${authBase}/register`, {
+      ...registerPayload,
+      email: `senha-fraca-${suffix}@example.com`,
+      password: 'fraca',
+    });
+    assert.equal(weakPasswordResponse.status, 400);
+
+    const invalidPayloadResponse = await postJson(`${authBase}/register`, {
+      ...registerPayload,
+      email: 'email-invalido',
+    });
+    assert.equal(invalidPayloadResponse.status, 400);
+
+    const registerResponse = await postJson(
+      `${authBase}/register`,
+      registerPayload,
+    );
+    assert.equal(registerResponse.status, 201);
+    const registration = await registerResponse.json();
+    assert.equal(registration.tokenType, 'Bearer');
+    assert.equal(registration.expiresIn, 3600);
+    assert.equal(registration.user.email, registerPayload.email);
+    assert.equal(registration.user.passwordHash, undefined);
+    assert.ok(registration.accessToken);
+
+    const profileResponse = await fetch(`${authBase}/me`, {
+      headers: {
+        Authorization: `Bearer ${registration.accessToken}`,
+      },
+    });
+    assert.equal(profileResponse.status, 200);
+    const profile = await profileResponse.json();
+    assert.equal(profile.email, registerPayload.email);
+    assert.equal(profile.passwordHash, undefined);
+
+    const missingTokenResponse = await fetch(`${authBase}/me`);
+    assert.equal(missingTokenResponse.status, 401);
+
+    const invalidTokenResponse = await fetch(`${authBase}/me`, {
+      headers: {
+        Authorization: 'Bearer token-invalido',
+      },
+    });
+    assert.equal(invalidTokenResponse.status, 401);
+
+    const expiredToken = signExpiredToken({
+      sub: registration.user.id,
+      email: registration.user.email,
+    });
+    const expiredTokenResponse = await fetch(`${authBase}/me`, {
+      headers: {
+        Authorization: `Bearer ${expiredToken}`,
+      },
+    });
+    assert.equal(expiredTokenResponse.status, 401);
+
+    const loginResponse = await postJson(`${authBase}/login`, {
+      email: registerPayload.email,
+      password: registerPayload.password,
+    });
+    assert.equal(loginResponse.status, 200);
+    const login = await loginResponse.json();
+    assert.ok(login.accessToken);
+    assert.equal(login.user.id, registration.user.id);
+
+    const duplicatedResponse = await postJson(
+      `${authBase}/register`,
+      registerPayload,
+    );
+    assert.equal(duplicatedResponse.status, 409);
+
+    const invalidLoginResponse = await postJson(`${authBase}/login`, {
+      email: registerPayload.email,
+      password: 'SenhaErrada2026',
+    });
+    assert.equal(invalidLoginResponse.status, 401);
   } finally {
     stopProcess(backend);
   }
