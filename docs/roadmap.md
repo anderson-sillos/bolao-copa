@@ -16,3 +16,18 @@ quando forem priorizados.
 - Rate limiting para endpoints sensíveis.
 - Auditoria de tentativas de autenticação.
 - Rejeição de senhas comuns, vazadas ou presentes em listas conhecidas.
+
+## Arquitetura e organização técnica
+
+- Criar `DocsModule` e separar responsabilidades hoje concentradas em
+  `docs.controller.ts`, por exemplo documento OpenAPI, assets da Swagger UI e
+  controller HTTP.
+- Criar `HealthModule` para manter simetria com os demais módulos NestJS conforme
+  a aplicação crescer.
+- Avaliar migração gradual de `entities/` centralizado para entidades próximas
+  aos módulos de domínio quando surgirem novos domínios e relacionamentos mais
+  complexos.
+- Extrair helpers da suíte `test/foundation.integration.test.cjs` quando novos
+  fluxos HTTP, banco e autenticação aumentarem o tamanho do arquivo.
+- Avaliar padronização futura do formato global de erros de validação por campo,
+  preservando as mensagens em português.

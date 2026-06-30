@@ -1,0 +1,59 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "WSL: iniciar backend em debug",
+      "type": "shell",
+      "command": "wsl.exe",
+      "args": [
+        "bash",
+        "-lc",
+        "cd /mnt/c/Projetos/bolao-copa && if [ -f apps/backend/.env ]; then set -a; . apps/backend/.env; set +a; fi; npm run start:dev --workspace=backend -- --debug 0.0.0.0:9229"
+      ],
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": "."
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".",
+          "endsPattern": "Debugger listening|Nest application successfully started"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    },
+    {
+      "label": "WSL: iniciar frontend em debug",
+      "type": "shell",
+      "command": "wsl.exe",
+      "args": [
+        "bash",
+        "-lc",
+        "cd /mnt/c/Projetos/bolao-copa && NODE_OPTIONS=--inspect=0.0.0.0:9230 npm run dev --workspace=frontend"
+      ],
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": "."
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".",
+          "endsPattern": "Debugger listening|Ready in|Local:"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    }
+  ]
+}

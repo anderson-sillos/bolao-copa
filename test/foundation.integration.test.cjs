@@ -347,8 +347,9 @@ test('backend responde na rota raiz', async () => {
     );
     assert.equal(docsHtmlResponse.status, 200);
     const docsHtml = await docsHtmlResponse.text();
-    assert.match(docsHtml, /SwaggerUIBundle/);
-    assert.match(docsHtml, /\/docs-json/);
+    assert.doesNotMatch(docsHtml, /<script>\s*window\.addEventListener/);
+    assert.match(docsHtml, /\/docs\/swagger-ui-bundle\.js/);
+    assert.match(docsHtml, /\/docs\/swagger-ui-init\.js/);
 
     const docsAssetResponse = await fetch(
       `http://localhost:${backendPort}/docs/swagger-ui-bundle.js`,
@@ -358,6 +359,18 @@ test('backend responde na rota raiz', async () => {
       docsAssetResponse.headers.get('content-type'),
       /application\/javascript/,
     );
+
+    const docsInitializerResponse = await fetch(
+      `http://localhost:${backendPort}/docs/swagger-ui-init.js`,
+    );
+    assert.equal(docsInitializerResponse.status, 200);
+    assert.match(
+      docsInitializerResponse.headers.get('content-type'),
+      /application\/javascript/,
+    );
+    const docsInitializer = await docsInitializerResponse.text();
+    assert.match(docsInitializer, /SwaggerUIBundle/);
+    assert.match(docsInitializer, /\/docs-json/);
 
     const suffix = Date.now();
     const authBase = `http://localhost:${backendPort}/auth`;
@@ -379,6 +392,9 @@ test('backend responde na rota raiz', async () => {
       email: 'email-invalido',
     });
     assert.equal(invalidPayloadResponse.status, 400);
+    assert.deepEqual((await invalidPayloadResponse.json()).message, [
+      'Informe um e-mail válido',
+    ]);
 
     const registerResponse = await postJson(
       `${authBase}/register`,
@@ -431,6 +447,15 @@ test('backend responde na rota raiz', async () => {
     const login = await loginResponse.json();
     assert.ok(login.accessToken);
     assert.equal(login.user.id, registration.user.id);
+
+    const invalidLoginPayloadResponse = await postJson(`${authBase}/login`, {
+      email: 'email-invalido',
+      password: registerPayload.password,
+    });
+    assert.equal(invalidLoginPayloadResponse.status, 400);
+    assert.deepEqual((await invalidLoginPayloadResponse.json()).message, [
+      'Informe um e-mail válido',
+    ]);
 
     const duplicatedResponse = await postJson(
       `${authBase}/register`,
