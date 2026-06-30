@@ -14,6 +14,16 @@ const swaggerUiBundle = readFileSync(
   join(swaggerUiPath, 'swagger-ui-bundle.js'),
   'utf8',
 );
+const swaggerUiInitializer = `
+window.addEventListener('load', () => {
+  window.ui = SwaggerUIBundle({
+    url: '/docs-json',
+    dom_id: '#swagger-ui',
+    deepLinking: true,
+    persistAuthorization: true
+  });
+});
+`;
 
 const openApiDocument = {
   openapi: '3.0.3',
@@ -254,16 +264,7 @@ export class DocsController {
   <body>
     <div id="swagger-ui"></div>
     <script src="/docs/swagger-ui-bundle.js"></script>
-    <script>
-      window.addEventListener('load', () => {
-        window.ui = SwaggerUIBundle({
-          url: '/docs-json',
-          dom_id: '#swagger-ui',
-          deepLinking: true,
-          persistAuthorization: true
-        });
-      });
-    </script>
+    <script src="/docs/swagger-ui-init.js"></script>
   </body>
 </html>`;
   }
@@ -280,6 +281,13 @@ export class DocsController {
   getSwaggerUiBundle(): string {
     this.ensureEnabled();
     return swaggerUiBundle;
+  }
+
+  @Get('docs/swagger-ui-init.js')
+  @Header('Content-Type', 'application/javascript; charset=utf-8')
+  getSwaggerUiInitializer(): string {
+    this.ensureEnabled();
+    return swaggerUiInitializer;
   }
 
   private ensureEnabled(): void {

@@ -1,0 +1,40 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Backend: NestJS debug (WSL)",
+      "type": "node",
+      "request": "attach",
+      "address": "localhost",
+      "port": 9229,
+      "preLaunchTask": "WSL: iniciar backend em debug",
+      "restart": true,
+      "localRoot": "${workspaceFolder}/apps/backend",
+      "remoteRoot": "/mnt/c/Projetos/bolao-copa/apps/backend",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Frontend: Next.js debug (WSL)",
+      "type": "node",
+      "request": "attach",
+      "address": "localhost",
+      "port": 9230,
+      "preLaunchTask": "WSL: iniciar frontend em debug",
+      "restart": true,
+      "localRoot": "${workspaceFolder}/apps/frontend",
+      "remoteRoot": "/mnt/c/Projetos/bolao-copa/apps/frontend",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Full stack: Backend + Frontend (WSL)",
+      "configurations": [
+        "Backend: NestJS debug (WSL)",
+        "Frontend: Next.js debug (WSL)"
+      ]
+    }
+  ]
+}
