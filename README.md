@@ -13,6 +13,7 @@ Repositório: https://github.com/anderson-sillos/bolao-copa
 - TypeScript 6
 - ESLint 10 com flat config
 - Next.js 16 e React 19
+- Tailwind CSS 4
 - NestJS 11
 - TypeORM 1.0
 - PostgreSQL 15
@@ -187,7 +188,7 @@ workspaces e usa um banco isolado chamado `bolao_copa_test`. A suíte valida:
 - resposta HTTP do backend;
 - cadastro, login, token JWT e rota protegida de perfil;
 - documentação OpenAPI e carregamento da Swagger UI local;
-- renderização da página inicial do frontend.
+- renderização da página inicial do frontend e das páginas de cadastro/login.
 
 O banco de teste é removido automaticamente ao final.
 
@@ -225,6 +226,39 @@ Exemplo de rota protegida:
 curl http://localhost:3000/auth/me \
   -H "Authorization: Bearer <access-token>"
 ```
+
+## Autenticação no frontend
+
+O frontend possui telas iniciais de cadastro e login:
+
+- `GET /register`: formulário de cadastro com nome, e-mail e senha;
+- `GET /login`: formulário de autenticação com e-mail e senha;
+- `GET /`: home que mostra estado deslogado ou perfil autenticado.
+
+Em sucesso, cadastro e login salvam o access token retornado pela API e
+redirecionam para a home. A home lê o token, chama `GET /auth/me`, exibe nome e
+e-mail do usuário autenticado e oferece logout local. Se o token estiver inválido
+ou expirado, a sessão local é limpa e a interface volta ao estado deslogado.
+
+Nesta fase inicial, o token é armazenado em `localStorage` para validar o fluxo
+ponta a ponta. Essa estratégia é temporária; antes de produção, a evolução
+planejada é usar cookie seguro/HTTP-only, refresh token e revogação server-side,
+conforme registrado no [roadmap](docs/roadmap.md).
+
+## Organização do frontend
+
+O frontend usa Pages Router. Arquivos em `apps/frontend/pages/` devem permanecer
+enxutos, delegando UI, estado e lógica de caso de uso para `apps/frontend/src/`.
+
+Convenção principal:
+
+- `src/components/ui/`: componentes genéricos sem regra de negócio;
+- `src/components/layout/`: layouts compartilhados, quando existirem;
+- `src/features/<feature>/`: componentes, hooks, services e tipos específicos de
+  uma área funcional;
+- `src/lib/`: utilitários técnicos compartilhados.
+
+Detalhes e exemplos estão em [docs/frontend.md](docs/frontend.md).
 
 ## Segurança, documentação e logs
 

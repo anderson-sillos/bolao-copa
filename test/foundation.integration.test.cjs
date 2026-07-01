@@ -490,7 +490,20 @@ test('frontend renderiza a página inicial', async () => {
     );
     const html = await response.text();
     assert.match(html, /Bolão da Copa 2026/);
-    assert.match(html, /Message from backend/);
+    assert.match(html, /Palpites, ranking/);
+    assert.match(html, /Verificando sua sessão/);
+
+    const loginResponse = await fetch(`http://localhost:${frontendPort}/login`);
+    const loginHtml = await loginResponse.text();
+    assert.match(loginHtml, /Entrar/);
+    assert.match(loginHtml, /Informe seu e-mail e senha/);
+
+    const registerResponse = await fetch(
+      `http://localhost:${frontendPort}/register`,
+    );
+    const registerHtml = await registerResponse.text();
+    assert.match(registerHtml, /Criar conta/);
+    assert.match(registerHtml, /senha com pelo menos 8 caracteres/);
   } finally {
     stopProcess(frontend);
   }

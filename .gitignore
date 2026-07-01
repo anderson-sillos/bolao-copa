@@ -20,6 +20,7 @@ coverage/
 # Editors and operating systems
 .vscode/*
 !.vscode/launch.json
+!.vscode/settings.json
 !.vscode/tasks.json
 .idea/
 .DS_Store
