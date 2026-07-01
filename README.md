@@ -13,6 +13,7 @@ Repositório: https://github.com/anderson-sillos/bolao-copa
 - TypeScript 6
 - ESLint 10 com flat config
 - Next.js 16 e React 19
+- Tailwind CSS 4
 - NestJS 11
 - TypeORM 1.0
 - PostgreSQL 15
