@@ -14,7 +14,7 @@
     "lint": "eslint . --max-warnings=0",
     "build": "npm run build --workspaces --if-present",
     "test": "npm run test:foundation",
-    "test:unit": "node --test test/unit/environment.test.cjs",
+    "test:unit": "node --test test/unit/*.test.cjs",
     "test:coverage": "node test/run-coverage.cjs",
     "test:foundation": "docker compose up -d postgres && node --test --test-concurrency=1 test/foundation.integration.test.cjs",
     "test:foundation:ci": "node --test --test-concurrency=1 test/foundation.integration.test.cjs",

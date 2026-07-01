@@ -6,9 +6,13 @@ quando forem priorizados.
 
 ## Autenticação e segurança
 
+- Session cookie/cookie HTTP-only para substituir a estratégia temporária de
+  token em `localStorage` antes de produção.
 - Refresh token e estratégia de rotação/revogação.
-- Armazenamento de tokens em cookies HTTP-only quando a arquitetura do frontend
-  estiver pronta para esse fluxo.
+- Logout com revogação/invalidação server-side quando houver sessões renováveis.
+- Proteção CSRF compatível com a futura estratégia baseada em cookies.
+- Revisão de atributos de cookies seguros (`HttpOnly`, `Secure`, `SameSite`,
+  escopo e tempo de expiração).
 - Login social via OAuth.
 - MFA para contas que exigirem segurança adicional.
 - Bloqueio ou atraso progressivo após tentativas repetidas de login com senha
