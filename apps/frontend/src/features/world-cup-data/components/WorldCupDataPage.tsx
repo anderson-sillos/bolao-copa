@@ -15,11 +15,7 @@ import { GroupStageSchedule } from './GroupStageSchedule';
 import { KnockoutBracket } from './KnockoutBracket';
 
 type PageState =
-  | 'checking-session'
-  | 'loading-data'
-  | 'unauthenticated'
-  | 'ready'
-  | 'error';
+  'checking-session' | 'loading-data' | 'unauthenticated' | 'ready' | 'error';
 
 export function WorldCupDataPage() {
   const [pageState, setPageState] = useState<PageState>('checking-session');
