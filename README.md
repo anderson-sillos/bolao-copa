@@ -109,8 +109,12 @@ npm run migration:run --workspace=backend
 npm run seed --workspace=backend
 ```
 
-O seed insere 12 grupos, 48 seleções e 104 jogos. Jogos eliminatórios ainda sem
-seleções definidas são mantidos com referências de time nulas.
+O seed insere 12 grupos, 48 seleções e 104 jogos. Quando disponível na fonte de
+referência, o placar final é persistido em `score_a`/`score_b` e a decisão por
+pênaltis em `penalty_score_a`/`penalty_score_b`. Jogos eliminatórios ainda sem
+seleções definidas são mantidos com referências de time nulas e origem textual
+do participante, como `W89` ou `L101`, para indicar vencedor/perdedor de jogos
+anteriores.
 
 ### 5. Inicie as aplicações
 
@@ -187,8 +191,9 @@ workspaces e usa um banco isolado chamado `bolao_copa_test`. A suíte valida:
 - restrição de um palpite por usuário e jogo;
 - resposta HTTP do backend;
 - cadastro, login, token JWT e rota protegida de perfil;
+- endpoints autenticados de grupos, seleções e jogos da Copa;
 - documentação OpenAPI e carregamento da Swagger UI local;
-- renderização da página inicial do frontend e das páginas de cadastro/login.
+- renderização da página inicial, páginas de cadastro/login e rota `/copa`.
 
 O banco de teste é removido automaticamente ao final.
 
@@ -217,7 +222,7 @@ Exemplo de cadastro:
 ```bash
 curl -X POST http://localhost:3000/auth/register \
   -H 'Content-Type: application/json' \
-  -d '{"name":"Anderson Martins","email":"anderson@example.com","password":"Bolao2026"}'
+  -d '{"name":"Participante","email":"participante@example.com","password":"Bolao2026"}'
 ```
 
 Exemplo de rota protegida:
@@ -244,6 +249,35 @@ Nesta fase inicial, o token é armazenado em `localStorage` para validar o fluxo
 ponta a ponta. Essa estratégia é temporária; antes de produção, a evolução
 planejada é usar cookie seguro/HTTP-only, refresh token e revogação server-side,
 conforme registrado no [roadmap](docs/roadmap.md).
+
+## Dados autenticados da Copa
+
+A API expõe consultas autenticadas de leitura para os dados base da Copa:
+
+- `GET /groups`: lista grupos com suas seleções;
+- `GET /teams`: lista seleções com grupo e `flagIconCode`;
+- `GET /games`: lista jogos ordenados por data/hora;
+- `GET /games?phase=fase_de_grupos`: filtra jogos por fase válida.
+
+Todas essas rotas exigem header bearer:
+
+```bash
+curl http://localhost:3000/groups \
+  -H "Authorization: Bearer <access-token>"
+```
+
+No frontend, a rota protegida `GET /copa` consulta esses dados usando
+`NEXT_PUBLIC_API_URL`. Usuários sem sessão local veem orientação para entrar ou
+criar conta; tokens expirados limpam a sessão local.
+
+A apresentação segue estas decisões:
+
+- seleções pendentes em jogos eliminatórios são exibidas como “A definir”;
+- fases técnicas, como `fase_de_grupos` e `quartas`, recebem rótulos amigáveis;
+- eliminatórias são agrupadas visualmente como chaves por fase, sem inferir
+  avanço automático entre jogos;
+- `flagIconCode` é mantido na API como código compatível com a biblioteca de
+  ícones de bandeira usada no frontend, com fallback textual/acessível.
 
 ## Organização do frontend
 
@@ -329,12 +363,14 @@ O Compose aguarda o healthcheck do PostgreSQL antes de iniciar o backend e usa
 
 - `users`: participantes do bolão;
 - `groups`: grupos da competição;
-- `teams`: seleções, códigos FIFA de três letras e bandeiras Unicode;
+- `teams`: seleções, códigos FIFA de três letras e código visual da bandeira;
 - `games`: calendário, fase, placar e seleções participantes;
 - `bets`: palpites, limitados a um por usuário e jogo.
 
-As bandeiras são armazenadas como sequências ASCII de code points, por exemplo
-`U+1F1E7 U+1F1F7`. A conversão para emoji pertence à camada de apresentação.
+As bandeiras são armazenadas como códigos de ícone, por exemplo `br`, `us`,
+`gb-eng` e `gb-sct`. O código FIFA permanece em `country_code`; o código de
+ícone fica em `flag_icon_code` para evitar depender do suporte nativo a emoji do
+sistema operacional.
 
 ## Recriar o banco local
 
@@ -396,7 +432,8 @@ O resultado esperado é `No changes in database schema were found`.
 ## Estado atual
 
 A fundação executável está pronta com frontend, backend, banco, migração, seed,
-CI, documentação OpenAPI e autenticação inicial por JWT.
+CI, documentação OpenAPI, autenticação inicial por JWT e consulta autenticada
+dos dados base da Copa.
 
 Estes itens ainda não fazem parte do escopo implementado:
 

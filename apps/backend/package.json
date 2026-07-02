@@ -3,9 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "clean": "node -e \"const fs=require('node:fs'); fs.rmSync('dist', { recursive: true, force: true }); fs.rmSync('tsconfig.tsbuildinfo', { force: true })\"",
     "build": "nest build --tsc -- --verbose",
+    "build:clean": "npm run clean && npm run build",
     "build:debug": "tsc --build --verbose",
-    "start:dev": "nest start --watch",
+    "start:dev": "node ../../scripts/start-backend-dev.mjs",
+    "start:compiled": "node dist/main",
     "start:prod": "node dist/main",
     "start": "node dist/main",
     "typeorm": "typeorm-ts-node-commonjs -d src/data-source.ts",

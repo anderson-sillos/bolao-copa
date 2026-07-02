@@ -116,6 +116,12 @@ export function HomePage() {
                 </p>
 
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                  <Link
+                    className="rounded-xl bg-emerald-600 px-5 py-3 text-center font-semibold text-white shadow-lg shadow-emerald-600/20 transition hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-200"
+                    href="/copa"
+                  >
+                    Ver dados da Copa
+                  </Link>
                   <Button onClick={handleLogout} variant="secondary">
                     Sair
                   </Button>

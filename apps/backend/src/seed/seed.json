@@ -1,306 +1,330 @@
 {
   "groups": [
-    { "name": "A" },
-    { "name": "B" },
-    { "name": "C" },
-    { "name": "D" },
-    { "name": "E" },
-    { "name": "F" },
-    { "name": "G" },
-    { "name": "H" },
-    { "name": "I" },
-    { "name": "J" },
-    { "name": "K" },
-    { "name": "L" }
+    {
+      "name": "A"
+    },
+    {
+      "name": "B"
+    },
+    {
+      "name": "C"
+    },
+    {
+      "name": "D"
+    },
+    {
+      "name": "E"
+    },
+    {
+      "name": "F"
+    },
+    {
+      "name": "G"
+    },
+    {
+      "name": "H"
+    },
+    {
+      "name": "I"
+    },
+    {
+      "name": "J"
+    },
+    {
+      "name": "K"
+    },
+    {
+      "name": "L"
+    }
   ],
   "teams": [
     {
       "name": "México",
       "country_code": "MEX",
       "group_name": "A",
-      "flag_unicode": "U+1F1F2 U+1F1FD"
+      "flag_icon_code": "mx"
     },
     {
       "name": "África do Sul",
       "country_code": "RSA",
       "group_name": "A",
-      "flag_unicode": "U+1F1FF U+1F1E6"
+      "flag_icon_code": "za"
     },
     {
       "name": "Coreia do Sul",
       "country_code": "KOR",
       "group_name": "A",
-      "flag_unicode": "U+1F1F0 U+1F1F7"
+      "flag_icon_code": "kr"
     },
     {
       "name": "República Tcheca",
       "country_code": "CZE",
       "group_name": "A",
-      "flag_unicode": "U+1F1E8 U+1F1FF"
+      "flag_icon_code": "cz"
     },
     {
       "name": "Canadá",
       "country_code": "CAN",
       "group_name": "B",
-      "flag_unicode": "U+1F1E8 U+1F1E6"
+      "flag_icon_code": "ca"
     },
     {
       "name": "Bósnia",
       "country_code": "BIH",
       "group_name": "B",
-      "flag_unicode": "U+1F1E7 U+1F1E6"
+      "flag_icon_code": "ba"
     },
     {
       "name": "Catar",
       "country_code": "QAT",
       "group_name": "B",
-      "flag_unicode": "U+1F1F6 U+1F1E6"
+      "flag_icon_code": "qa"
     },
     {
       "name": "Suíça",
       "country_code": "SUI",
       "group_name": "B",
-      "flag_unicode": "U+1F1E8 U+1F1ED"
+      "flag_icon_code": "ch"
     },
     {
       "name": "Brasil",
       "country_code": "BRA",
       "group_name": "C",
-      "flag_unicode": "U+1F1E7 U+1F1F7"
+      "flag_icon_code": "br"
     },
     {
       "name": "Marrocos",
       "country_code": "MAR",
       "group_name": "C",
-      "flag_unicode": "U+1F1F2 U+1F1E6"
+      "flag_icon_code": "ma"
     },
     {
       "name": "Haiti",
       "country_code": "HAI",
       "group_name": "C",
-      "flag_unicode": "U+1F1ED U+1F1F9"
+      "flag_icon_code": "ht"
     },
     {
       "name": "Escócia",
       "country_code": "SCO",
       "group_name": "C",
-      "flag_unicode": "U+1F3F4 U+E0067 U+E0062 U+E0073 U+E0063 U+E0074 U+E007F"
+      "flag_icon_code": "gb-sct"
     },
     {
       "name": "Estados Unidos",
       "country_code": "USA",
       "group_name": "D",
-      "flag_unicode": "U+1F1FA U+1F1F8"
+      "flag_icon_code": "us"
     },
     {
       "name": "Paraguai",
       "country_code": "PAR",
       "group_name": "D",
-      "flag_unicode": "U+1F1F5 U+1F1FE"
+      "flag_icon_code": "py"
     },
     {
       "name": "Austrália",
       "country_code": "AUS",
       "group_name": "D",
-      "flag_unicode": "U+1F1E6 U+1F1FA"
+      "flag_icon_code": "au"
     },
     {
       "name": "Turquia",
       "country_code": "TUR",
       "group_name": "D",
-      "flag_unicode": "U+1F1F9 U+1F1F7"
+      "flag_icon_code": "tr"
     },
     {
       "name": "Alemanha",
       "country_code": "GER",
       "group_name": "E",
-      "flag_unicode": "U+1F1E9 U+1F1EA"
+      "flag_icon_code": "de"
     },
     {
       "name": "Curaçao",
       "country_code": "CUW",
       "group_name": "E",
-      "flag_unicode": "U+1F1E8 U+1F1FC"
+      "flag_icon_code": "cw"
     },
     {
       "name": "Costa do Marfim",
       "country_code": "CIV",
       "group_name": "E",
-      "flag_unicode": "U+1F1E8 U+1F1EE"
+      "flag_icon_code": "ci"
     },
     {
       "name": "Equador",
       "country_code": "ECU",
       "group_name": "E",
-      "flag_unicode": "U+1F1EA U+1F1E8"
+      "flag_icon_code": "ec"
     },
     {
       "name": "Holanda",
       "country_code": "NED",
       "group_name": "F",
-      "flag_unicode": "U+1F1F3 U+1F1F1"
+      "flag_icon_code": "nl"
     },
     {
       "name": "Japão",
       "country_code": "JPN",
       "group_name": "F",
-      "flag_unicode": "U+1F1EF U+1F1F5"
+      "flag_icon_code": "jp"
     },
     {
       "name": "Suécia",
       "country_code": "SWE",
       "group_name": "F",
-      "flag_unicode": "U+1F1F8 U+1F1EA"
+      "flag_icon_code": "se"
     },
     {
       "name": "Tunísia",
       "country_code": "TUN",
       "group_name": "F",
-      "flag_unicode": "U+1F1F9 U+1F1F3"
+      "flag_icon_code": "tn"
     },
     {
       "name": "Bélgica",
       "country_code": "BEL",
       "group_name": "G",
-      "flag_unicode": "U+1F1E7 U+1F1EA"
+      "flag_icon_code": "be"
     },
     {
       "name": "Egito",
       "country_code": "EGY",
       "group_name": "G",
-      "flag_unicode": "U+1F1EA U+1F1EC"
+      "flag_icon_code": "eg"
     },
     {
       "name": "Irã",
       "country_code": "IRN",
       "group_name": "G",
-      "flag_unicode": "U+1F1EE U+1F1F7"
+      "flag_icon_code": "ir"
     },
     {
       "name": "Nova Zelândia",
       "country_code": "NZL",
       "group_name": "G",
-      "flag_unicode": "U+1F1F3 U+1F1FF"
+      "flag_icon_code": "nz"
     },
     {
       "name": "Espanha",
       "country_code": "ESP",
       "group_name": "H",
-      "flag_unicode": "U+1F1EA U+1F1F8"
+      "flag_icon_code": "es"
     },
     {
       "name": "Cabo Verde",
       "country_code": "CPV",
       "group_name": "H",
-      "flag_unicode": "U+1F1E8 U+1F1FB"
+      "flag_icon_code": "cv"
     },
     {
       "name": "Arábia Saudita",
       "country_code": "KSA",
       "group_name": "H",
-      "flag_unicode": "U+1F1F8 U+1F1E6"
+      "flag_icon_code": "sa"
     },
     {
       "name": "Uruguai",
       "country_code": "URU",
       "group_name": "H",
-      "flag_unicode": "U+1F1FA U+1F1FE"
+      "flag_icon_code": "uy"
     },
     {
       "name": "França",
       "country_code": "FRA",
       "group_name": "I",
-      "flag_unicode": "U+1F1EB U+1F1F7"
+      "flag_icon_code": "fr"
     },
     {
       "name": "Senegal",
       "country_code": "SEN",
       "group_name": "I",
-      "flag_unicode": "U+1F1F8 U+1F1F3"
+      "flag_icon_code": "sn"
     },
     {
       "name": "Iraque",
       "country_code": "IRQ",
       "group_name": "I",
-      "flag_unicode": "U+1F1EE U+1F1F6"
+      "flag_icon_code": "iq"
     },
     {
       "name": "Noruega",
       "country_code": "NOR",
       "group_name": "I",
-      "flag_unicode": "U+1F1F3 U+1F1F4"
+      "flag_icon_code": "no"
     },
     {
       "name": "Argentina",
       "country_code": "ARG",
       "group_name": "J",
-      "flag_unicode": "U+1F1E6 U+1F1F7"
+      "flag_icon_code": "ar"
     },
     {
       "name": "Argélia",
       "country_code": "ALG",
       "group_name": "J",
-      "flag_unicode": "U+1F1E9 U+1F1FF"
+      "flag_icon_code": "dz"
     },
     {
       "name": "Áustria",
       "country_code": "AUT",
       "group_name": "J",
-      "flag_unicode": "U+1F1E6 U+1F1F9"
+      "flag_icon_code": "at"
     },
     {
       "name": "Jordânia",
       "country_code": "JOR",
       "group_name": "J",
-      "flag_unicode": "U+1F1EF U+1F1F4"
+      "flag_icon_code": "jo"
     },
     {
       "name": "Portugal",
       "country_code": "POR",
       "group_name": "K",
-      "flag_unicode": "U+1F1F5 U+1F1F9"
+      "flag_icon_code": "pt"
     },
     {
       "name": "RD Congo",
       "country_code": "COD",
       "group_name": "K",
-      "flag_unicode": "U+1F1E8 U+1F1E9"
+      "flag_icon_code": "cd"
     },
     {
       "name": "Uzbequistão",
       "country_code": "UZB",
       "group_name": "K",
-      "flag_unicode": "U+1F1FA U+1F1FF"
+      "flag_icon_code": "uz"
     },
     {
       "name": "Colômbia",
       "country_code": "COL",
       "group_name": "K",
-      "flag_unicode": "U+1F1E8 U+1F1F4"
+      "flag_icon_code": "co"
     },
     {
       "name": "Inglaterra",
       "country_code": "ENG",
       "group_name": "L",
-      "flag_unicode": "U+1F3F4 U+E0067 U+E0062 U+E0065 U+E006E U+E0067 U+E007F"
+      "flag_icon_code": "gb-eng"
     },
     {
       "name": "Croácia",
       "country_code": "CRO",
       "group_name": "L",
-      "flag_unicode": "U+1F1ED U+1F1F7"
+      "flag_icon_code": "hr"
     },
     {
       "name": "Gana",
       "country_code": "GHA",
       "group_name": "L",
-      "flag_unicode": "U+1F1EC U+1F1ED"
+      "flag_icon_code": "gh"
     },
     {
       "name": "Panamá",
       "country_code": "PAN",
       "group_name": "L",
-      "flag_unicode": "U+1F1F5 U+1F1E6"
+      "flag_icon_code": "pa"
     }
   ],
   "games": [
@@ -308,625 +332,1385 @@
       "team_a_code": "MEX",
       "team_b_code": "RSA",
       "game_time": "2026-06-11T16:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "phase": "fase_de_grupos",
+      "score_a": 2,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 1,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
       "team_a_code": "KOR",
       "team_b_code": "CZE",
       "game_time": "2026-06-11T23:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "CAN",
-      "team_b_code": "BIH",
-      "game_time": "2026-06-12T16:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "USA",
-      "team_b_code": "PAR",
-      "game_time": "2026-06-12T22:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "QAT",
-      "team_b_code": "SUI",
-      "game_time": "2026-06-13T16:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "BRA",
-      "team_b_code": "MAR",
-      "game_time": "2026-06-13T19:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "HAI",
-      "team_b_code": "SCO",
-      "game_time": "2026-06-13T22:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "AUS",
-      "team_b_code": "TUR",
-      "game_time": "2026-06-14T01:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "GER",
-      "team_b_code": "CUW",
-      "game_time": "2026-06-14T14:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "NED",
-      "team_b_code": "JPN",
-      "game_time": "2026-06-14T17:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "CIV",
-      "team_b_code": "ECU",
-      "game_time": "2026-06-14T20:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "SWE",
-      "team_b_code": "TUN",
-      "game_time": "2026-06-14T23:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "ESP",
-      "team_b_code": "CPV",
-      "game_time": "2026-06-15T13:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "BEL",
-      "team_b_code": "EGY",
-      "game_time": "2026-06-15T16:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "KSA",
-      "team_b_code": "URU",
-      "game_time": "2026-06-15T19:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "IRN",
-      "team_b_code": "NZL",
-      "game_time": "2026-06-15T22:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "FRA",
-      "team_b_code": "SEN",
-      "game_time": "2026-06-16T16:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "IRQ",
-      "team_b_code": "NOR",
-      "game_time": "2026-06-16T19:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "ARG",
-      "team_b_code": "ALG",
-      "game_time": "2026-06-16T22:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "AUT",
-      "team_b_code": "JOR",
-      "game_time": "2026-06-17T01:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "POR",
-      "team_b_code": "COD",
-      "game_time": "2026-06-17T14:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "ENG",
-      "team_b_code": "CRO",
-      "game_time": "2026-06-17T17:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "GHA",
-      "team_b_code": "PAN",
-      "game_time": "2026-06-17T20:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "UZB",
-      "team_b_code": "COL",
-      "game_time": "2026-06-17T23:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "phase": "fase_de_grupos",
+      "score_a": 2,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 2,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
       "team_a_code": "CZE",
       "team_b_code": "RSA",
       "game_time": "2026-06-18T13:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "SUI",
-      "team_b_code": "BIH",
-      "game_time": "2026-06-18T16:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "CAN",
-      "team_b_code": "QAT",
-      "game_time": "2026-06-18T19:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 3,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
       "team_a_code": "MEX",
       "team_b_code": "KOR",
       "game_time": "2026-06-18T22:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "USA",
-      "team_b_code": "AUS",
-      "game_time": "2026-06-19T16:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "SCO",
-      "team_b_code": "MAR",
-      "game_time": "2026-06-19T19:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "BRA",
-      "team_b_code": "HAI",
-      "game_time": "2026-06-19T21:30:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "TUR",
-      "team_b_code": "PAR",
-      "game_time": "2026-06-20T01:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "NED",
-      "team_b_code": "SWE",
-      "game_time": "2026-06-20T14:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "GER",
-      "team_b_code": "CIV",
-      "game_time": "2026-06-20T17:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "ECU",
-      "team_b_code": "CUW",
-      "game_time": "2026-06-20T21:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "TUN",
-      "team_b_code": "JPN",
-      "game_time": "2026-06-21T01:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "ESP",
-      "team_b_code": "KSA",
-      "game_time": "2026-06-21T13:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "BEL",
-      "team_b_code": "IRN",
-      "game_time": "2026-06-21T16:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "URU",
-      "team_b_code": "CPV",
-      "game_time": "2026-06-21T19:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "NZL",
-      "team_b_code": "EGY",
-      "game_time": "2026-06-21T22:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "ARG",
-      "team_b_code": "AUT",
-      "game_time": "2026-06-22T14:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "FRA",
-      "team_b_code": "IRQ",
-      "game_time": "2026-06-22T18:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "NOR",
-      "team_b_code": "SEN",
-      "game_time": "2026-06-22T21:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "JOR",
-      "team_b_code": "ALG",
-      "game_time": "2026-06-23T00:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "POR",
-      "team_b_code": "UZB",
-      "game_time": "2026-06-23T14:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "ENG",
-      "team_b_code": "GHA",
-      "game_time": "2026-06-23T17:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "PAN",
-      "team_b_code": "CRO",
-      "game_time": "2026-06-23T20:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "COL",
-      "team_b_code": "COD",
-      "game_time": "2026-06-23T23:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "SUI",
-      "team_b_code": "CAN",
-      "game_time": "2026-06-24T16:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "BIH",
-      "team_b_code": "QAT",
-      "game_time": "2026-06-24T16:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "MAR",
-      "team_b_code": "HAI",
-      "game_time": "2026-06-24T19:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "SCO",
-      "team_b_code": "BRA",
-      "game_time": "2026-06-24T19:00:00.000-03:00",
-      "phase": "fase_de_grupos"
-    },
-    {
-      "team_a_code": "RSA",
-      "team_b_code": "KOR",
-      "game_time": "2026-06-24T22:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 4,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
       "team_a_code": "CZE",
       "team_b_code": "MEX",
       "game_time": "2026-06-24T22:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "phase": "fase_de_grupos",
+      "score_a": 0,
+      "score_b": 3,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 5,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
-      "team_a_code": "ECU",
-      "team_b_code": "GER",
-      "game_time": "2026-06-25T17:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "team_a_code": "RSA",
+      "team_b_code": "KOR",
+      "game_time": "2026-06-24T22:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 6,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
-      "team_a_code": "CUW",
-      "team_b_code": "CIV",
-      "game_time": "2026-06-25T17:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "team_a_code": "CAN",
+      "team_b_code": "BIH",
+      "game_time": "2026-06-12T16:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 7,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
-      "team_a_code": "TUN",
-      "team_b_code": "NED",
-      "game_time": "2026-06-25T20:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "team_a_code": "QAT",
+      "team_b_code": "SUI",
+      "game_time": "2026-06-13T16:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 8,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
-      "team_a_code": "JPN",
-      "team_b_code": "SWE",
-      "game_time": "2026-06-25T20:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "team_a_code": "SUI",
+      "team_b_code": "BIH",
+      "game_time": "2026-06-18T16:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 4,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 9,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "CAN",
+      "team_b_code": "QAT",
+      "game_time": "2026-06-18T19:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 6,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 10,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "SUI",
+      "team_b_code": "CAN",
+      "game_time": "2026-06-24T16:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 2,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 11,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "BIH",
+      "team_b_code": "QAT",
+      "game_time": "2026-06-24T16:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 3,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 12,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "BRA",
+      "team_b_code": "MAR",
+      "game_time": "2026-06-13T19:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 13,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "HAI",
+      "team_b_code": "SCO",
+      "game_time": "2026-06-13T22:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 0,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 14,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "SCO",
+      "team_b_code": "MAR",
+      "game_time": "2026-06-19T19:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 0,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 15,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "BRA",
+      "team_b_code": "HAI",
+      "game_time": "2026-06-19T21:30:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 3,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 16,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "SCO",
+      "team_b_code": "BRA",
+      "game_time": "2026-06-24T19:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 0,
+      "score_b": 3,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 17,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "MAR",
+      "team_b_code": "HAI",
+      "game_time": "2026-06-24T19:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 4,
+      "score_b": 2,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 18,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "USA",
+      "team_b_code": "PAR",
+      "game_time": "2026-06-12T22:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 4,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 19,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "AUS",
+      "team_b_code": "TUR",
+      "game_time": "2026-06-14T01:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 2,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 20,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "USA",
+      "team_b_code": "AUS",
+      "game_time": "2026-06-19T16:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 2,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 21,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "TUR",
+      "team_b_code": "PAR",
+      "game_time": "2026-06-20T00:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 0,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 22,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
       "team_a_code": "TUR",
       "team_b_code": "USA",
       "game_time": "2026-06-25T23:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "phase": "fase_de_grupos",
+      "score_a": 3,
+      "score_b": 2,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 23,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
       "team_a_code": "PAR",
       "team_b_code": "AUS",
       "game_time": "2026-06-25T23:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "phase": "fase_de_grupos",
+      "score_a": 0,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 24,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
-      "team_a_code": "SEN",
-      "team_b_code": "IRQ",
-      "game_time": "2026-06-26T16:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "team_a_code": "GER",
+      "team_b_code": "CUW",
+      "game_time": "2026-06-14T14:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 7,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 25,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
-      "team_a_code": "NOR",
-      "team_b_code": "FRA",
-      "game_time": "2026-06-26T16:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "team_a_code": "CIV",
+      "team_b_code": "ECU",
+      "game_time": "2026-06-14T20:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 26,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
-      "team_a_code": "CPV",
-      "team_b_code": "KSA",
-      "game_time": "2026-06-26T21:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "team_a_code": "GER",
+      "team_b_code": "CIV",
+      "game_time": "2026-06-20T17:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 2,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 27,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
-      "team_a_code": "URU",
-      "team_b_code": "ESP",
-      "game_time": "2026-06-26T21:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "team_a_code": "ECU",
+      "team_b_code": "CUW",
+      "game_time": "2026-06-20T21:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 0,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 28,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "CUW",
+      "team_b_code": "CIV",
+      "game_time": "2026-06-25T17:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 0,
+      "score_b": 2,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 29,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "ECU",
+      "team_b_code": "GER",
+      "game_time": "2026-06-25T17:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 2,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 30,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "NED",
+      "team_b_code": "JPN",
+      "game_time": "2026-06-14T17:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 2,
+      "score_b": 2,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 31,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "SWE",
+      "team_b_code": "TUN",
+      "game_time": "2026-06-14T23:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 5,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 32,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "NED",
+      "team_b_code": "SWE",
+      "game_time": "2026-06-20T14:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 5,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 33,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "TUN",
+      "team_b_code": "JPN",
+      "game_time": "2026-06-21T01:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 0,
+      "score_b": 4,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 34,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "JPN",
+      "team_b_code": "SWE",
+      "game_time": "2026-06-25T20:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 35,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "TUN",
+      "team_b_code": "NED",
+      "game_time": "2026-06-25T20:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 3,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 36,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "BEL",
+      "team_b_code": "EGY",
+      "game_time": "2026-06-15T16:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 37,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "IRN",
+      "team_b_code": "NZL",
+      "game_time": "2026-06-15T22:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 2,
+      "score_b": 2,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 38,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "BEL",
+      "team_b_code": "IRN",
+      "game_time": "2026-06-21T16:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 0,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 39,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "NZL",
+      "team_b_code": "EGY",
+      "game_time": "2026-06-21T22:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 3,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 40,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
       "team_a_code": "EGY",
       "team_b_code": "IRN",
       "game_time": "2026-06-27T00:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 41,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
       "team_a_code": "NZL",
       "team_b_code": "BEL",
       "game_time": "2026-06-27T00:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 5,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 42,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
-      "team_a_code": "CRO",
-      "team_b_code": "GHA",
-      "game_time": "2026-06-27T18:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "team_a_code": "ESP",
+      "team_b_code": "CPV",
+      "game_time": "2026-06-15T13:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 0,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 43,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
-      "team_a_code": "PAN",
-      "team_b_code": "ENG",
-      "game_time": "2026-06-27T18:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "team_a_code": "KSA",
+      "team_b_code": "URU",
+      "game_time": "2026-06-15T19:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 44,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
-      "team_a_code": "COD",
-      "team_b_code": "UZB",
-      "game_time": "2026-06-27T20:30:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "team_a_code": "ESP",
+      "team_b_code": "KSA",
+      "game_time": "2026-06-21T13:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 4,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 45,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
-      "team_a_code": "COL",
-      "team_b_code": "POR",
-      "game_time": "2026-06-27T20:30:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "team_a_code": "URU",
+      "team_b_code": "CPV",
+      "game_time": "2026-06-21T19:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 2,
+      "score_b": 2,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 46,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "CPV",
+      "team_b_code": "KSA",
+      "game_time": "2026-06-26T21:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 0,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 47,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "URU",
+      "team_b_code": "ESP",
+      "game_time": "2026-06-26T21:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 0,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 48,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "FRA",
+      "team_b_code": "SEN",
+      "game_time": "2026-06-16T16:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 3,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 49,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "IRQ",
+      "team_b_code": "NOR",
+      "game_time": "2026-06-16T19:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 4,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 50,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "FRA",
+      "team_b_code": "IRQ",
+      "game_time": "2026-06-22T18:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 3,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 51,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "NOR",
+      "team_b_code": "SEN",
+      "game_time": "2026-06-22T21:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 3,
+      "score_b": 2,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 52,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "NOR",
+      "team_b_code": "FRA",
+      "game_time": "2026-06-26T16:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 4,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 53,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "SEN",
+      "team_b_code": "IRQ",
+      "game_time": "2026-06-26T16:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 5,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 54,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "ARG",
+      "team_b_code": "ALG",
+      "game_time": "2026-06-16T22:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 3,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 55,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "AUT",
+      "team_b_code": "JOR",
+      "game_time": "2026-06-17T01:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 3,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 56,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "ARG",
+      "team_b_code": "AUT",
+      "game_time": "2026-06-22T14:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 2,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 57,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
       "team_a_code": "JOR",
-      "team_b_code": "ARG",
-      "game_time": "2026-06-27T23:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "team_b_code": "ALG",
+      "game_time": "2026-06-23T00:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 2,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 58,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
       "team_a_code": "ALG",
       "team_b_code": "AUT",
       "game_time": "2026-06-27T23:00:00.000-03:00",
-      "phase": "fase_de_grupos"
+      "phase": "fase_de_grupos",
+      "score_a": 3,
+      "score_b": 3,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 59,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
-      "team_a_code": null,
-      "team_b_code": null,
+      "team_a_code": "JOR",
+      "team_b_code": "ARG",
+      "game_time": "2026-06-27T23:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 3,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 60,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "POR",
+      "team_b_code": "COD",
+      "game_time": "2026-06-17T14:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 61,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "UZB",
+      "team_b_code": "COL",
+      "game_time": "2026-06-17T23:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 3,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 62,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "POR",
+      "team_b_code": "UZB",
+      "game_time": "2026-06-23T14:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 5,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 63,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "COL",
+      "team_b_code": "COD",
+      "game_time": "2026-06-23T23:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 64,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "COL",
+      "team_b_code": "POR",
+      "game_time": "2026-06-27T20:30:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 0,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 65,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "COD",
+      "team_b_code": "UZB",
+      "game_time": "2026-06-27T20:30:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 3,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 66,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "ENG",
+      "team_b_code": "CRO",
+      "game_time": "2026-06-17T17:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 4,
+      "score_b": 2,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 67,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "GHA",
+      "team_b_code": "PAN",
+      "game_time": "2026-06-17T20:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 1,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 68,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "ENG",
+      "team_b_code": "GHA",
+      "game_time": "2026-06-23T17:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 0,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 69,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "PAN",
+      "team_b_code": "CRO",
+      "game_time": "2026-06-23T20:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 0,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 70,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "PAN",
+      "team_b_code": "ENG",
+      "game_time": "2026-06-27T18:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 0,
+      "score_b": 2,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 71,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "CRO",
+      "team_b_code": "GHA",
+      "game_time": "2026-06-27T18:00:00.000-03:00",
+      "phase": "fase_de_grupos",
+      "score_a": 2,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 72,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "RSA",
+      "team_b_code": "CAN",
       "game_time": "2026-06-28T16:00:00.000-03:00",
-      "phase": "segunda_fase"
-    },
-    {
-      "team_a_code": null,
-      "team_b_code": null,
-      "game_time": "2026-06-29T14:00:00.000-03:00",
-      "phase": "segunda_fase"
+      "phase": "segunda_fase",
+      "score_a": 0,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 73,
+      "bracket_order": 1,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
       "team_a_code": "GER",
-      "team_b_code": null,
+      "team_b_code": "PAR",
       "game_time": "2026-06-29T17:30:00.000-03:00",
-      "phase": "segunda_fase"
+      "phase": "segunda_fase",
+      "score_a": 1,
+      "score_b": 1,
+      "penalty_score_a": 3,
+      "penalty_score_b": 4,
+      "match_number": 74,
+      "bracket_order": 3,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
-      "team_a_code": null,
-      "team_b_code": null,
+      "team_a_code": "NED",
+      "team_b_code": "MAR",
       "game_time": "2026-06-29T22:00:00.000-03:00",
-      "phase": "segunda_fase"
+      "phase": "segunda_fase",
+      "score_a": 1,
+      "score_b": 1,
+      "penalty_score_a": 2,
+      "penalty_score_b": 3,
+      "match_number": 75,
+      "bracket_order": 2,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
-      "team_a_code": null,
-      "team_b_code": null,
-      "game_time": "2026-06-30T14:00:00.000-03:00",
-      "phase": "segunda_fase"
+      "team_a_code": "BRA",
+      "team_b_code": "JPN",
+      "game_time": "2026-06-29T14:00:00.000-03:00",
+      "phase": "segunda_fase",
+      "score_a": 2,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 76,
+      "bracket_order": 9,
+      "team_a_source": null,
+      "team_b_source": null
     },
     {
-      "team_a_code": null,
-      "team_b_code": null,
+      "team_a_code": "FRA",
+      "team_b_code": "SWE",
       "game_time": "2026-06-30T18:00:00.000-03:00",
-      "phase": "segunda_fase"
+      "phase": "segunda_fase",
+      "score_a": 3,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 77,
+      "bracket_order": 4,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "CIV",
+      "team_b_code": "NOR",
+      "game_time": "2026-06-30T14:00:00.000-03:00",
+      "phase": "segunda_fase",
+      "score_a": 1,
+      "score_b": 2,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 78,
+      "bracket_order": 10,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "MEX",
+      "team_b_code": "ECU",
+      "game_time": "2026-06-30T22:00:00.000-03:00",
+      "phase": "segunda_fase",
+      "score_a": 2,
+      "score_b": 0,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 79,
+      "bracket_order": 11,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "ENG",
+      "team_b_code": "COD",
+      "game_time": "2026-07-01T13:00:00.000-03:00",
+      "phase": "segunda_fase",
+      "score_a": 2,
+      "score_b": 1,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 80,
+      "bracket_order": 12,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "USA",
+      "team_b_code": "BIH",
+      "game_time": "2026-07-01T21:00:00.000-03:00",
+      "phase": "segunda_fase",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 81,
+      "bracket_order": 5,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "BEL",
+      "team_b_code": "SEN",
+      "game_time": "2026-07-01T17:00:00.000-03:00",
+      "phase": "segunda_fase",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 82,
+      "bracket_order": 6,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "POR",
+      "team_b_code": "CRO",
+      "game_time": "2026-07-02T20:00:00.000-03:00",
+      "phase": "segunda_fase",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 83,
+      "bracket_order": 7,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "ESP",
+      "team_b_code": "AUT",
+      "game_time": "2026-07-02T16:00:00.000-03:00",
+      "phase": "segunda_fase",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 84,
+      "bracket_order": 8,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "SUI",
+      "team_b_code": "ALG",
+      "game_time": "2026-07-03T00:00:00.000-03:00",
+      "phase": "segunda_fase",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 85,
+      "bracket_order": 13,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "ARG",
+      "team_b_code": "CPV",
+      "game_time": "2026-07-03T19:00:00.000-03:00",
+      "phase": "segunda_fase",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 86,
+      "bracket_order": 15,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "COL",
+      "team_b_code": "GHA",
+      "game_time": "2026-07-03T22:30:00.000-03:00",
+      "phase": "segunda_fase",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 87,
+      "bracket_order": 14,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "AUS",
+      "team_b_code": "EGY",
+      "game_time": "2026-07-03T15:00:00.000-03:00",
+      "phase": "segunda_fase",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 88,
+      "bracket_order": 16,
+      "team_a_source": null,
+      "team_b_source": null
+    },
+    {
+      "team_a_code": "PAR",
+      "team_b_code": "FRA",
+      "game_time": "2026-07-04T18:00:00.000-03:00",
+      "phase": "oitavas",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 89,
+      "bracket_order": 2,
+      "team_a_source": "W74",
+      "team_b_source": "W77"
+    },
+    {
+      "team_a_code": "CAN",
+      "team_b_code": "MAR",
+      "game_time": "2026-07-04T14:00:00.000-03:00",
+      "phase": "oitavas",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 90,
+      "bracket_order": 1,
+      "team_a_source": "W73",
+      "team_b_source": "W75"
+    },
+    {
+      "team_a_code": "BRA",
+      "team_b_code": "NOR",
+      "game_time": "2026-07-05T17:00:00.000-03:00",
+      "phase": "oitavas",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 91,
+      "bracket_order": 5,
+      "team_a_source": "W76",
+      "team_b_source": "W78"
     },
     {
       "team_a_code": "MEX",
       "team_b_code": null,
-      "game_time": "2026-06-30T22:00:00.000-03:00",
-      "phase": "segunda_fase"
-    },
-    {
-      "team_a_code": null,
-      "team_b_code": null,
-      "game_time": "2026-07-01T13:00:00.000-03:00",
-      "phase": "segunda_fase"
-    },
-    {
-      "team_a_code": null,
-      "team_b_code": null,
-      "game_time": "2026-07-01T17:00:00.000-03:00",
-      "phase": "segunda_fase"
-    },
-    {
-      "team_a_code": "USA",
-      "team_b_code": null,
-      "game_time": "2026-07-01T21:00:00.000-03:00",
-      "phase": "segunda_fase"
-    },
-    {
-      "team_a_code": null,
-      "team_b_code": null,
-      "game_time": "2026-07-02T16:00:00.000-03:00",
-      "phase": "segunda_fase"
-    },
-    {
-      "team_a_code": null,
-      "team_b_code": null,
-      "game_time": "2026-07-02T20:00:00.000-03:00",
-      "phase": "segunda_fase"
-    },
-    {
-      "team_a_code": null,
-      "team_b_code": null,
-      "game_time": "2026-07-03T00:00:00.000-03:00",
-      "phase": "segunda_fase"
-    },
-    {
-      "team_a_code": null,
-      "team_b_code": null,
-      "game_time": "2026-07-03T15:00:00.000-03:00",
-      "phase": "segunda_fase"
-    },
-    {
-      "team_a_code": "ARG",
-      "team_b_code": null,
-      "game_time": "2026-07-03T19:00:00.000-03:00",
-      "phase": "segunda_fase"
-    },
-    {
-      "team_a_code": null,
-      "team_b_code": null,
-      "game_time": "2026-07-03T22:30:00.000-03:00",
-      "phase": "segunda_fase"
-    },
-    {
-      "team_a_code": null,
-      "team_b_code": null,
-      "game_time": "2026-07-04T14:00:00.000-03:00",
-      "phase": "oitavas"
-    },
-    {
-      "team_a_code": null,
-      "team_b_code": null,
-      "game_time": "2026-07-04T18:00:00.000-03:00",
-      "phase": "oitavas"
-    },
-    {
-      "team_a_code": null,
-      "team_b_code": null,
-      "game_time": "2026-07-05T17:00:00.000-03:00",
-      "phase": "oitavas"
-    },
-    {
-      "team_a_code": null,
-      "team_b_code": null,
       "game_time": "2026-07-05T21:00:00.000-03:00",
-      "phase": "oitavas"
+      "phase": "oitavas",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 92,
+      "bracket_order": 6,
+      "team_a_source": "W79",
+      "team_b_source": "W80"
     },
     {
       "team_a_code": null,
       "team_b_code": null,
       "game_time": "2026-07-06T16:00:00.000-03:00",
-      "phase": "oitavas"
+      "phase": "oitavas",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 93,
+      "bracket_order": 4,
+      "team_a_source": "W83",
+      "team_b_source": "W84"
     },
     {
       "team_a_code": null,
       "team_b_code": null,
       "game_time": "2026-07-06T21:00:00.000-03:00",
-      "phase": "oitavas"
+      "phase": "oitavas",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 94,
+      "bracket_order": 3,
+      "team_a_source": "W81",
+      "team_b_source": "W82"
     },
     {
       "team_a_code": null,
       "team_b_code": null,
       "game_time": "2026-07-07T13:00:00.000-03:00",
-      "phase": "oitavas"
+      "phase": "oitavas",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 95,
+      "bracket_order": 8,
+      "team_a_source": "W86",
+      "team_b_source": "W88"
     },
     {
       "team_a_code": null,
       "team_b_code": null,
       "game_time": "2026-07-07T17:00:00.000-03:00",
-      "phase": "oitavas"
+      "phase": "oitavas",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 96,
+      "bracket_order": 7,
+      "team_a_source": "W85",
+      "team_b_source": "W87"
     },
     {
       "team_a_code": null,
       "team_b_code": null,
       "game_time": "2026-07-09T17:00:00.000-03:00",
-      "phase": "quartas"
+      "phase": "quartas",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 97,
+      "bracket_order": 1,
+      "team_a_source": "W89",
+      "team_b_source": "W90"
     },
     {
       "team_a_code": null,
       "team_b_code": null,
       "game_time": "2026-07-10T16:00:00.000-03:00",
-      "phase": "quartas"
+      "phase": "quartas",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 98,
+      "bracket_order": 2,
+      "team_a_source": "W93",
+      "team_b_source": "W94"
     },
     {
       "team_a_code": null,
       "team_b_code": null,
       "game_time": "2026-07-11T18:00:00.000-03:00",
-      "phase": "quartas"
+      "phase": "quartas",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 99,
+      "bracket_order": 3,
+      "team_a_source": "W91",
+      "team_b_source": "W92"
     },
     {
       "team_a_code": null,
       "team_b_code": null,
       "game_time": "2026-07-11T22:00:00.000-03:00",
-      "phase": "quartas"
+      "phase": "quartas",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 100,
+      "bracket_order": 4,
+      "team_a_source": "W95",
+      "team_b_source": "W96"
     },
     {
       "team_a_code": null,
       "team_b_code": null,
       "game_time": "2026-07-14T16:00:00.000-03:00",
-      "phase": "semifinal"
+      "phase": "semifinal",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 101,
+      "bracket_order": 1,
+      "team_a_source": "W97",
+      "team_b_source": "W98"
     },
     {
       "team_a_code": null,
       "team_b_code": null,
       "game_time": "2026-07-15T16:00:00.000-03:00",
-      "phase": "semifinal"
+      "phase": "semifinal",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 102,
+      "bracket_order": 2,
+      "team_a_source": "W99",
+      "team_b_source": "W100"
     },
     {
       "team_a_code": null,
       "team_b_code": null,
       "game_time": "2026-07-18T18:00:00.000-03:00",
-      "phase": "terceiro_lugar"
+      "phase": "terceiro_lugar",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 103,
+      "bracket_order": 1,
+      "team_a_source": "L101",
+      "team_b_source": "L102"
     },
     {
       "team_a_code": null,
       "team_b_code": null,
       "game_time": "2026-07-19T16:00:00.000-03:00",
-      "phase": "final"
+      "phase": "final",
+      "score_a": null,
+      "score_b": null,
+      "penalty_score_a": null,
+      "penalty_score_b": null,
+      "match_number": 104,
+      "bracket_order": 1,
+      "team_a_source": "W101",
+      "team_b_source": "W102"
     }
   ]
 }
