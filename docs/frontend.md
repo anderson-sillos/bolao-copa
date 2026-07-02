@@ -38,6 +38,27 @@ botões, campos e alertas. Quando um componente criado dentro de uma feature
 passar a ser útil para outras áreas sem depender da semântica original, promova-o
 para `src/components/`.
 
+## Feature de dados da Copa
+
+A rota `apps/frontend/pages/copa.tsx` segue a política de página enxuta: ela
+apenas compõe `WorldCupDataPage`, enquanto carregamento de dados, estados de
+interface e componentes da tela ficam em
+`apps/frontend/src/features/world-cup-data/`.
+
+Convenções aplicadas nessa feature:
+
+- `world-cup-data-client.ts`: chamadas à API usando `apiFetch` e token explícito;
+- `world-cup-data-types.ts`: contratos consumidos pela tela, alinhados aos DTOs
+  públicos da API;
+- `world-cup-data-formatters.ts`: helpers testáveis de bandeira, fase, data e
+  separação entre fase de grupos e eliminatórias;
+- `components/`: componentes semânticos da feature, como lista de grupos, card
+  de jogo, agenda e chaves.
+
+Novas telas devem seguir a mesma ideia: página de rota pequena, cliente/helper
+testável quando houver regra de apresentação, e componentes agrupados pela
+feature antes de promover algo para `src/components/`.
+
 ## Autenticação no frontend
 
 O fluxo atual é intencionalmente simples para validar a integração ponta a ponta:

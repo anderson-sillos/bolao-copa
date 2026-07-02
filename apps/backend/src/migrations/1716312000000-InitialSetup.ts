@@ -35,7 +35,7 @@ export class InitialSetup1716312000000 implements MigrationInterface {
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
         "name" character varying NOT NULL,
         "country_code" character varying(3) NOT NULL,
-        "flag_unicode" character varying NOT NULL,
+        "flag_icon_code" character varying NOT NULL,
         "group_id" uuid,
         CONSTRAINT "UQ_teams_name" UNIQUE ("name"),
         CONSTRAINT "UQ_teams_country_code" UNIQUE ("country_code"),
@@ -55,6 +55,12 @@ export class InitialSetup1716312000000 implements MigrationInterface {
         "phase" character varying NOT NULL,
         "score_a" integer,
         "score_b" integer,
+        "penalty_score_a" integer,
+        "penalty_score_b" integer,
+        "match_number" integer,
+        "bracket_order" integer,
+        "team_a_source" character varying,
+        "team_b_source" character varying,
         CONSTRAINT "PK_games" PRIMARY KEY ("id"),
         CONSTRAINT "FK_games_team_a"
           FOREIGN KEY ("team_a_id") REFERENCES "teams"("id")

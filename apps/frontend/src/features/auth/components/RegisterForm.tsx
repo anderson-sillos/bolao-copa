@@ -52,7 +52,7 @@ export function RegisterForm() {
           label="Nome"
           minLength={2}
           autoComplete="name"
-          placeholder="Anderson Martins"
+          placeholder="Seu nome completo"
           value={name}
           onChange={event => setName(event.target.value)}
         />

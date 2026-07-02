@@ -5,25 +5,52 @@ import { join } from 'node:path';
 import { getAbsoluteFSPath } from 'swagger-ui-dist';
 import { Environment } from '../config/environment';
 
-const swaggerUiPath = getAbsoluteFSPath();
-const swaggerUiCss = readFileSync(
-  join(swaggerUiPath, 'swagger-ui.css'),
-  'utf8',
-);
-const swaggerUiBundle = readFileSync(
-  join(swaggerUiPath, 'swagger-ui-bundle.js'),
-  'utf8',
-);
 const swaggerUiInitializer = `
 window.addEventListener('load', () => {
+  function persistBearerTokenFromAuthResponse(response) {
+    const isAuthEndpoint =
+      response.url.endsWith('/auth/login') ||
+      response.url.endsWith('/auth/register');
+
+    if (!isAuthEndpoint || !response.ok || !response.text) {
+      return;
+    }
+
+    try {
+      const body = JSON.parse(response.text);
+      if (body.accessToken) {
+        window.ui.preauthorizeApiKey('bearerAuth', body.accessToken);
+      }
+    } catch {
+      // Mantém o comportamento padrão quando a resposta não estiver no formato esperado.
+    }
+  }
+
   window.ui = SwaggerUIBundle({
     url: '/docs-json',
     dom_id: '#swagger-ui',
     deepLinking: true,
-    persistAuthorization: true
+    persistAuthorization: true,
+    responseInterceptor: response => {
+      persistBearerTokenFromAuthResponse(response);
+      return response;
+    }
   });
 });
 `;
+
+const swaggerUiAssets = new Map<string, string>();
+
+function readSwaggerUiAsset(filename: string): string {
+  const cachedAsset = swaggerUiAssets.get(filename);
+  if (cachedAsset) {
+    return cachedAsset;
+  }
+
+  const asset = readFileSync(join(getAbsoluteFSPath(), filename), 'utf8');
+  swaggerUiAssets.set(filename, asset);
+  return asset;
+}
 
 const openApiDocument = {
   openapi: '3.0.3',
@@ -131,6 +158,112 @@ const openApiDocument = {
         },
       },
     },
+    '/groups': {
+      get: {
+        summary: 'Lista grupos da Copa com suas seleções',
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        responses: {
+          200: {
+            description: 'Grupos da Copa',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'array',
+                  items: {
+                    $ref: '#/components/schemas/WorldCupGroup',
+                  },
+                },
+              },
+            },
+          },
+          401: {
+            description: 'Token ausente, inválido ou expirado',
+          },
+        },
+      },
+    },
+    '/teams': {
+      get: {
+        summary: 'Lista seleções da Copa',
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        responses: {
+          200: {
+            description: 'Seleções da Copa',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'array',
+                  items: {
+                    $ref: '#/components/schemas/WorldCupTeam',
+                  },
+                },
+              },
+            },
+          },
+          401: {
+            description: 'Token ausente, inválido ou expirado',
+          },
+        },
+      },
+    },
+    '/games': {
+      get: {
+        summary: 'Lista jogos da Copa',
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        parameters: [
+          {
+            name: 'phase',
+            in: 'query',
+            required: false,
+            schema: {
+              type: 'string',
+              enum: [
+                'fase_de_grupos',
+                'segunda_fase',
+                'oitavas',
+                'quartas',
+                'semifinal',
+                'terceiro_lugar',
+                'final',
+              ],
+            },
+          },
+        ],
+        responses: {
+          200: {
+            description: 'Jogos da Copa',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'array',
+                  items: {
+                    $ref: '#/components/schemas/WorldCupGame',
+                  },
+                },
+              },
+            },
+          },
+          400: {
+            description: 'Fase inválida',
+          },
+          401: {
+            description: 'Token ausente, inválido ou expirado',
+          },
+        },
+      },
+    },
     '/health': {
       get: {
         summary: 'Verifica a saúde da API e do PostgreSQL',
@@ -162,12 +295,12 @@ const openApiDocument = {
             type: 'string',
             minLength: 2,
             maxLength: 120,
-            example: 'Anderson Martins',
+            example: 'Participante',
           },
           email: {
             type: 'string',
             format: 'email',
-            example: 'anderson@example.com',
+            example: 'participante@example.com',
           },
           password: {
             type: 'string',
@@ -184,7 +317,7 @@ const openApiDocument = {
           email: {
             type: 'string',
             format: 'email',
-            example: 'anderson@example.com',
+            example: 'participante@example.com',
           },
           password: {
             type: 'string',
@@ -235,6 +368,152 @@ const openApiDocument = {
           },
         },
       },
+      WorldCupGroupSummary: {
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string',
+            format: 'uuid',
+          },
+          name: {
+            type: 'string',
+            example: 'A',
+          },
+        },
+      },
+      WorldCupTeamSummary: {
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string',
+            format: 'uuid',
+          },
+          name: {
+            type: 'string',
+            example: 'Brasil',
+          },
+          countryCode: {
+            type: 'string',
+            example: 'BRA',
+          },
+          flagIconCode: {
+            type: 'string',
+            example: 'br',
+          },
+        },
+      },
+      WorldCupGroup: {
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string',
+            format: 'uuid',
+          },
+          name: {
+            type: 'string',
+            example: 'A',
+          },
+          teams: {
+            type: 'array',
+            items: {
+              $ref: '#/components/schemas/WorldCupTeamSummary',
+            },
+          },
+        },
+      },
+      WorldCupTeam: {
+        allOf: [
+          {
+            $ref: '#/components/schemas/WorldCupTeamSummary',
+          },
+          {
+            type: 'object',
+            properties: {
+              group: {
+                nullable: true,
+                allOf: [
+                  {
+                    $ref: '#/components/schemas/WorldCupGroupSummary',
+                  },
+                ],
+              },
+            },
+          },
+        ],
+      },
+      WorldCupGame: {
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string',
+            format: 'uuid',
+          },
+          phase: {
+            type: 'string',
+            example: 'fase_de_grupos',
+          },
+          gameTime: {
+            type: 'string',
+            format: 'date-time',
+          },
+          scoreA: {
+            type: 'number',
+            nullable: true,
+          },
+          scoreB: {
+            type: 'number',
+            nullable: true,
+          },
+          penaltyScoreA: {
+            type: 'number',
+            nullable: true,
+          },
+          penaltyScoreB: {
+            type: 'number',
+            nullable: true,
+          },
+          matchNumber: {
+            type: 'number',
+            nullable: true,
+          },
+          bracketOrder: {
+            type: 'number',
+            nullable: true,
+            example: 1,
+          },
+          teamASource: {
+            type: 'string',
+            nullable: true,
+            example: 'W89',
+          },
+          teamBSource: {
+            type: 'string',
+            nullable: true,
+            example: 'W90',
+          },
+          groupName: {
+            type: 'string',
+            nullable: true,
+            example: 'A',
+          },
+          teamA: {
+            nullable: true,
+            allOf: [
+              {
+                $ref: '#/components/schemas/WorldCupTeamSummary',
+              },
+            ],
+          },
+          teamB: {
+            nullable: true,
+            allOf: [
+              {
+                $ref: '#/components/schemas/WorldCupTeamSummary',
+              },
+            ],
+          },
+        },
+      },
     },
   },
 };
@@ -273,14 +552,14 @@ export class DocsController {
   @Header('Content-Type', 'text/css; charset=utf-8')
   getSwaggerUiCss(): string {
     this.ensureEnabled();
-    return swaggerUiCss;
+    return readSwaggerUiAsset('swagger-ui.css');
   }
 
   @Get('docs/swagger-ui-bundle.js')
   @Header('Content-Type', 'application/javascript; charset=utf-8')
   getSwaggerUiBundle(): string {
     this.ensureEnabled();
-    return swaggerUiBundle;
+    return readSwaggerUiAsset('swagger-ui-bundle.js');
   }
 
   @Get('docs/swagger-ui-init.js')

@@ -23,8 +23,8 @@ export class Team {
   @Column({ name: 'country_code', length: 3 })
   countryCode: string;
 
-  @Column({ name: 'flag_unicode' })
-  flagUnicode: string;
+  @Column({ name: 'flag_icon_code' })
+  flagIconCode: string;
 
   @ManyToOne(() => Group, group => group.teams, {
     nullable: true, // Um time pode não ter um grupo (ex: em fases eliminatórias)

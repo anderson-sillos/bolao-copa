@@ -198,6 +198,46 @@ test('migração cria o schema e rollback remove as tabelas', async () => {
       result.rows.map(row => row.table_name),
       ['bets', 'games', 'groups', 'teams', 'users'],
     );
+
+    const teamsColumns = await client.query(
+      `SELECT column_name
+       FROM information_schema.columns
+       WHERE table_schema = 'public'
+         AND table_name = 'teams'
+         AND column_name IN ('flag_icon_code', 'flag_unicode')
+       ORDER BY column_name`,
+    );
+    assert.deepEqual(
+      teamsColumns.rows.map(row => row.column_name),
+      ['flag_icon_code'],
+    );
+
+    const gamesColumns = await client.query(
+      `SELECT column_name
+       FROM information_schema.columns
+       WHERE table_schema = 'public'
+         AND table_name = 'games'
+         AND column_name IN (
+           'bracket_order',
+           'match_number',
+           'penalty_score_a',
+           'penalty_score_b',
+           'team_a_source',
+           'team_b_source'
+         )
+       ORDER BY column_name`,
+    );
+    assert.deepEqual(
+      gamesColumns.rows.map(row => row.column_name),
+      [
+        'bracket_order',
+        'match_number',
+        'penalty_score_a',
+        'penalty_score_b',
+        'team_a_source',
+        'team_b_source',
+      ],
+    );
   });
 
   run('npm', ['run', 'migration:revert', '--workspace=backend']);
@@ -254,15 +294,32 @@ test('seed persiste grupos, seleções e todos os jogos', async () => {
         (SELECT count(*)::int FROM games
           WHERE team_a_id IS NULL AND team_b_id IS NULL) AS pending,
         (SELECT count(*)::int FROM games
-          WHERE (team_a_id IS NULL) <> (team_b_id IS NULL)) AS partial
+          WHERE (team_a_id IS NULL) <> (team_b_id IS NULL)) AS partial,
+        (SELECT count(*)::int FROM games
+          WHERE score_a IS NOT NULL AND score_b IS NOT NULL) AS scored,
+        (SELECT count(*)::int FROM games
+          WHERE penalty_score_a IS NOT NULL
+            AND penalty_score_b IS NOT NULL) AS penalties,
+        (SELECT count(*)::int FROM games
+          WHERE match_number IS NOT NULL) AS numbered,
+        (SELECT count(*)::int FROM games
+          WHERE bracket_order IS NOT NULL) AS bracketed,
+        (SELECT count(*)::int FROM games
+          WHERE team_a_source IS NOT NULL
+             OR team_b_source IS NOT NULL) AS sourced
     `);
 
     assert.deepEqual(result.rows[0], {
       groups: 12,
       teams: 48,
       games: 104,
-      pending: 28,
-      partial: 4,
+      pending: 12,
+      partial: 1,
+      scored: 80,
+      penalties: 2,
+      numbered: 104,
+      bracketed: 32,
+      sourced: 16,
     });
   });
 });
@@ -309,6 +366,7 @@ test('backend responde na rota raiz', async () => {
     const response = await waitForUrl(
       `http://localhost:${backendPort}`,
       backend,
+      120_000,
     );
     assert.deepEqual(await response.json(), {
       message: 'Hello from the NestJS API!',
@@ -340,6 +398,19 @@ test('backend responde na rota raiz', async () => {
     assert.equal(openApi.openapi, '3.0.3');
     assert.ok(openApi.paths['/health']);
     assert.ok(openApi.paths['/auth/register']);
+    assert.ok(openApi.paths['/groups']);
+    assert.ok(openApi.paths['/teams']);
+    assert.ok(openApi.paths['/games']);
+    assert.ok(
+      openApi.components.schemas.WorldCupTeamSummary.properties.flagIconCode,
+    );
+    assert.ok(openApi.components.schemas.WorldCupGame.properties.penaltyScoreA);
+    assert.ok(openApi.components.schemas.WorldCupGame.properties.penaltyScoreB);
+    assert.ok(openApi.components.schemas.WorldCupGame.properties.matchNumber);
+    assert.ok(openApi.components.schemas.WorldCupGame.properties.bracketOrder);
+    assert.ok(openApi.components.schemas.WorldCupGame.properties.teamASource);
+    assert.ok(openApi.components.schemas.WorldCupGame.properties.teamBSource);
+    assert.ok(openApi.components.schemas.WorldCupGame.properties.groupName);
     assert.ok(openApi.components.securitySchemes.bearerAuth);
 
     const docsHtmlResponse = await fetch(
@@ -448,6 +519,92 @@ test('backend responde na rota raiz', async () => {
     assert.ok(login.accessToken);
     assert.equal(login.user.id, registration.user.id);
 
+    const worldCupBase = `http://localhost:${backendPort}`;
+    const authenticatedHeaders = {
+      Authorization: `Bearer ${login.accessToken}`,
+    };
+
+    const unauthorizedGroupsResponse = await fetch(`${worldCupBase}/groups`);
+    assert.equal(unauthorizedGroupsResponse.status, 401);
+
+    const groupsResponse = await fetch(`${worldCupBase}/groups`, {
+      headers: authenticatedHeaders,
+    });
+    assert.equal(groupsResponse.status, 200);
+    const groups = await groupsResponse.json();
+    assert.equal(groups.length, 12);
+    assert.equal(groups[0].teams.length, 4);
+    assert.ok(groups[0].teams[0].flagIconCode);
+
+    const teamsResponse = await fetch(`${worldCupBase}/teams`, {
+      headers: authenticatedHeaders,
+    });
+    assert.equal(teamsResponse.status, 200);
+    const teams = await teamsResponse.json();
+    assert.equal(teams.length, 48);
+    assert.ok(teams[0].group);
+    assert.equal(teams[0].passwordHash, undefined);
+
+    const gamesResponse = await fetch(`${worldCupBase}/games`, {
+      headers: authenticatedHeaders,
+    });
+    assert.equal(gamesResponse.status, 200);
+    const games = await gamesResponse.json();
+    assert.equal(games.length, 104);
+    assert.ok(games[0].phase);
+    assert.ok(games[0].gameTime);
+    assert.equal(games[0].scoreA, 2);
+    assert.equal(games[0].scoreB, 0);
+    assert.equal(games[0].matchNumber, 1);
+    assert.equal(games[0].bracketOrder, null);
+    assert.equal(games[0].groupName, 'A');
+    const gameWithPenalties = games.find(
+      game => game.penaltyScoreA !== null && game.penaltyScoreB !== null,
+    );
+    assert.ok(gameWithPenalties);
+    assert.equal(gameWithPenalties.scoreA, 1);
+    assert.equal(gameWithPenalties.scoreB, 1);
+    const gameWithSource = games.find(game => game.teamBSource === 'W80');
+    assert.ok(gameWithSource);
+    assert.equal(gameWithSource.teamA.countryCode, 'MEX');
+    assert.equal(gameWithSource.bracketOrder, 6);
+
+    const groupStageGamesResponse = await fetch(
+      `${worldCupBase}/games?phase=fase_de_grupos`,
+      {
+        headers: authenticatedHeaders,
+      },
+    );
+    assert.equal(groupStageGamesResponse.status, 200);
+    const groupStageGames = await groupStageGamesResponse.json();
+    assert.ok(groupStageGames.length > 0);
+    assert.ok(groupStageGames.every(game => game.phase === 'fase_de_grupos'));
+
+    const roundOf16GamesResponse = await fetch(
+      `${worldCupBase}/games?phase=oitavas`,
+      {
+        headers: authenticatedHeaders,
+      },
+    );
+    assert.equal(roundOf16GamesResponse.status, 200);
+    const roundOf16Games = await roundOf16GamesResponse.json();
+    assert.deepEqual(
+      roundOf16Games.slice(0, 2).map(game => game.matchNumber),
+      [90, 89],
+    );
+    assert.deepEqual(
+      roundOf16Games.slice(0, 2).map(game => game.bracketOrder),
+      [1, 2],
+    );
+
+    const invalidPhaseResponse = await fetch(
+      `${worldCupBase}/games?phase=fase_inexistente`,
+      {
+        headers: authenticatedHeaders,
+      },
+    );
+    assert.equal(invalidPhaseResponse.status, 400);
+
     const invalidLoginPayloadResponse = await postJson(`${authBase}/login`, {
       email: 'email-invalido',
       password: registerPayload.password,
@@ -504,6 +661,12 @@ test('frontend renderiza a página inicial', async () => {
     const registerHtml = await registerResponse.text();
     assert.match(registerHtml, /Criar conta/);
     assert.match(registerHtml, /senha com pelo menos 8 caracteres/);
+
+    const copaResponse = await fetch(`http://localhost:${frontendPort}/copa`);
+    assert.equal(copaResponse.status, 200);
+    const copaHtml = await copaResponse.text();
+    assert.match(copaHtml, /Dados da Copa/);
+    assert.match(copaHtml, /Verificando sua sessão/);
   } finally {
     stopProcess(frontend);
   }
