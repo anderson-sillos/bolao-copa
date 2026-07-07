@@ -31,5 +31,5 @@
 - [x] 5.2 Executar `npm run lint`.
 - [x] 5.3 Executar `npm run test:governance`.
 - [x] 5.4 Executar validações adicionais aplicáveis ao escopo, incluindo OpenSpec strict.
-- [ ] 5.5 Abrir PR e confirmar que checks de PR exibem `Metadata` e `Validate` sem `Metadata skipped` no run de PR.
-- [ ] 5.6 Sincronizar specs e arquivar a change após implementação validada.
+- [x] 5.5 Abrir PR e confirmar que checks de PR exibem `Metadata` e `Validate` sem `Metadata skipped` no run de PR.
+- [x] 5.6 Sincronizar specs e arquivar a change após implementação validada.
