@@ -192,8 +192,10 @@ workspaces e usa um banco isolado chamado `bolao_copa_test`. A suíte valida:
 - resposta HTTP do backend;
 - cadastro, login, token JWT e rota protegida de perfil;
 - endpoints autenticados de grupos, seleções e jogos da Copa;
+- endpoints autenticados de criação, atualização e consulta de palpites;
 - documentação OpenAPI e carregamento da Swagger UI local;
-- renderização da página inicial, páginas de cadastro/login e rota `/copa`.
+- renderização da página inicial, páginas de cadastro/login e rotas `/copa` e
+  `/palpites`.
 
 O banco de teste é removido automaticamente ao final.
 
@@ -278,6 +280,33 @@ A apresentação segue estas decisões:
   avanço automático entre jogos;
 - `flagIconCode` é mantido na API como código compatível com a biblioteca de
   ícones de bandeira usada no frontend, com fallback textual/acessível.
+
+## Palpites autenticados
+
+A API expõe endpoints autenticados para que cada pessoa gerencie seus próprios
+palpites de placar:
+
+- `GET /bets`: lista os palpites do usuário logado;
+- `GET /bets/:gameId`: retorna `{ "bet": <palpite|null> }` para um jogo;
+- `POST /bets`: cria ou atualiza um palpite com `gameId`, `scoreA` e `scoreB`;
+- `PUT /bets/:gameId`: atualiza o placar do palpite para um jogo.
+
+Todas essas rotas exigem header bearer. Exemplo:
+
+```bash
+curl -X POST http://localhost:3000/bets \
+  -H "Authorization: Bearer <access-token>" \
+  -H 'Content-Type: application/json' \
+  -d '{"gameId":"<game-id>","scoreA":2,"scoreB":1}'
+```
+
+Os placares devem ser inteiros não negativos. O sistema aceita somente um
+palpite por usuário e jogo, bloqueia alterações depois do início da partida e
+não libera palpites para confrontos ainda sem as duas seleções definidas.
+
+No frontend, a rota protegida `GET /palpites` carrega jogos e palpites do
+usuário usando `NEXT_PUBLIC_API_URL`. Usuários sem sessão local veem orientação
+para entrar ou criar conta; tokens expirados limpam a sessão local.
 
 ## Organização do frontend
 
@@ -365,7 +394,7 @@ O Compose aguarda o healthcheck do PostgreSQL antes de iniciar o backend e usa
 - `groups`: grupos da competição;
 - `teams`: seleções, códigos FIFA de três letras e código visual da bandeira;
 - `games`: calendário, fase, placar e seleções participantes;
-- `bets`: palpites, limitados a um por usuário e jogo.
+- `bets`: palpites de placar, limitados a um por usuário e jogo.
 
 As bandeiras são armazenadas como códigos de ícone, por exemplo `br`, `us`,
 `gb-eng` e `gb-sct`. O código FIFA permanece em `country_code`; o código de
@@ -432,13 +461,13 @@ O resultado esperado é `No changes in database schema were found`.
 ## Estado atual
 
 A fundação executável está pronta com frontend, backend, banco, migração, seed,
-CI, documentação OpenAPI, autenticação inicial por JWT e consulta autenticada
-dos dados base da Copa.
+CI, documentação OpenAPI, autenticação inicial por JWT, consulta autenticada
+dos dados base da Copa e criação/edição autenticada de palpites.
 
 Estes itens ainda não fazem parte do escopo implementado:
 
 - regras de pontuação;
-- interface final do bolão;
+- ranking e interface final do bolão;
 - refresh token e cookies HTTP-only;
 - login social via OAuth, MFA e políticas avançadas de segurança;
 - rate limiting, lockout e auditoria de tentativas de login.

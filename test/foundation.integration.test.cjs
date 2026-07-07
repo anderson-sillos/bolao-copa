@@ -1,5 +1,5 @@
 const assert = require('node:assert/strict');
-const { createHmac } = require('node:crypto');
+const { createHmac, randomUUID } = require('node:crypto');
 const { execFileSync, spawn } = require('node:child_process');
 const { after, before, test } = require('node:test');
 const { setTimeout: delay } = require('node:timers/promises');
@@ -313,10 +313,10 @@ test('seed persiste grupos, seleções e todos os jogos', async () => {
       groups: 12,
       teams: 48,
       games: 104,
-      pending: 12,
-      partial: 1,
-      scored: 80,
-      penalties: 2,
+      pending: 5,
+      partial: 0,
+      scored: 94,
+      penalties: 3,
       numbered: 104,
       bracketed: 32,
       sourced: 16,
@@ -401,6 +401,8 @@ test('backend responde na rota raiz', async () => {
     assert.ok(openApi.paths['/groups']);
     assert.ok(openApi.paths['/teams']);
     assert.ok(openApi.paths['/games']);
+    assert.ok(openApi.paths['/bets']);
+    assert.ok(openApi.paths['/bets/{gameId}']);
     assert.ok(
       openApi.components.schemas.WorldCupTeamSummary.properties.flagIconCode,
     );
@@ -411,6 +413,9 @@ test('backend responde na rota raiz', async () => {
     assert.ok(openApi.components.schemas.WorldCupGame.properties.teamASource);
     assert.ok(openApi.components.schemas.WorldCupGame.properties.teamBSource);
     assert.ok(openApi.components.schemas.WorldCupGame.properties.groupName);
+    assert.ok(openApi.components.schemas.MatchBet);
+    assert.ok(openApi.components.schemas.SaveMatchBetRequest);
+    assert.ok(openApi.components.schemas.UpdateMatchBetRequest);
     assert.ok(openApi.components.securitySchemes.bearerAuth);
 
     const docsHtmlResponse = await fetch(
@@ -605,6 +610,203 @@ test('backend responde na rota raiz', async () => {
     );
     assert.equal(invalidPhaseResponse.status, 400);
 
+    const betFixtures = await withClient(testDatabase, async client => {
+      const editableGame = await client.query(
+        `SELECT id FROM games
+         WHERE team_a_id IS NOT NULL AND team_b_id IS NOT NULL
+         ORDER BY game_time ASC
+         LIMIT 1`,
+      );
+      const lockedGame = await client.query(
+        `SELECT id FROM games
+         WHERE team_a_id IS NOT NULL AND team_b_id IS NOT NULL
+         ORDER BY game_time ASC
+         OFFSET 1
+         LIMIT 1`,
+      );
+      const pendingGame = await client.query(
+        `SELECT id FROM games
+         WHERE team_a_id IS NULL OR team_b_id IS NULL
+         ORDER BY game_time ASC
+         LIMIT 1`,
+      );
+
+      await client.query(
+        `UPDATE games
+         SET game_time = NOW() + INTERVAL '7 days'
+         WHERE id = $1`,
+        [editableGame.rows[0].id],
+      );
+      await client.query(
+        `UPDATE games
+         SET game_time = NOW() - INTERVAL '1 day'
+         WHERE id = $1`,
+        [lockedGame.rows[0].id],
+      );
+      await client.query(
+        `UPDATE games
+         SET game_time = NOW() + INTERVAL '8 days'
+         WHERE id = $1`,
+        [pendingGame.rows[0].id],
+      );
+
+      return {
+        editableGameId: editableGame.rows[0].id,
+        lockedGameId: lockedGame.rows[0].id,
+        pendingGameId: pendingGame.rows[0].id,
+      };
+    });
+
+    const unauthorizedBetsResponse = await fetch(`${worldCupBase}/bets`);
+    assert.equal(unauthorizedBetsResponse.status, 401);
+
+    const emptyBetsResponse = await fetch(`${worldCupBase}/bets`, {
+      headers: authenticatedHeaders,
+    });
+    assert.equal(emptyBetsResponse.status, 200);
+    assert.deepEqual(await emptyBetsResponse.json(), []);
+
+    const missingBetResponse = await fetch(
+      `${worldCupBase}/bets/${betFixtures.editableGameId}`,
+      {
+        headers: authenticatedHeaders,
+      },
+    );
+    assert.equal(missingBetResponse.status, 200);
+    assert.deepEqual(await missingBetResponse.json(), { bet: null });
+
+    const unauthenticatedCreateBetResponse = await postJson(
+      `${worldCupBase}/bets`,
+      {
+        gameId: betFixtures.editableGameId,
+        scoreA: 2,
+        scoreB: 1,
+      },
+    );
+    assert.equal(unauthenticatedCreateBetResponse.status, 401);
+
+    const createdBetResponse = await fetch(`${worldCupBase}/bets`, {
+      method: 'POST',
+      headers: {
+        ...authenticatedHeaders,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        gameId: betFixtures.editableGameId,
+        scoreA: 2,
+        scoreB: 1,
+      }),
+    });
+    assert.equal(createdBetResponse.status, 201);
+    const createdBet = await createdBetResponse.json();
+    assert.equal(createdBet.gameId, betFixtures.editableGameId);
+    assert.equal(createdBet.scoreA, 2);
+    assert.equal(createdBet.scoreB, 1);
+    assert.ok(createdBet.game.teamA);
+    assert.ok(createdBet.game.teamB);
+
+    const updatedBetResponse = await fetch(
+      `${worldCupBase}/bets/${betFixtures.editableGameId}`,
+      {
+        method: 'PUT',
+        headers: {
+          ...authenticatedHeaders,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          scoreA: 3,
+          scoreB: 2,
+        }),
+      },
+    );
+    assert.equal(updatedBetResponse.status, 200);
+    const updatedBet = await updatedBetResponse.json();
+    assert.equal(updatedBet.id, createdBet.id);
+    assert.equal(updatedBet.scoreA, 3);
+    assert.equal(updatedBet.scoreB, 2);
+
+    const invalidBetResponse = await fetch(`${worldCupBase}/bets`, {
+      method: 'POST',
+      headers: {
+        ...authenticatedHeaders,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        gameId: betFixtures.editableGameId,
+        scoreA: -1,
+        scoreB: 1.5,
+      }),
+    });
+    assert.equal(invalidBetResponse.status, 400);
+
+    const nonexistentGameBetResponse = await fetch(`${worldCupBase}/bets`, {
+      method: 'POST',
+      headers: {
+        ...authenticatedHeaders,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        gameId: randomUUID(),
+        scoreA: 1,
+        scoreB: 1,
+      }),
+    });
+    assert.equal(nonexistentGameBetResponse.status, 404);
+
+    const lockedGameBetResponse = await fetch(`${worldCupBase}/bets`, {
+      method: 'POST',
+      headers: {
+        ...authenticatedHeaders,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        gameId: betFixtures.lockedGameId,
+        scoreA: 1,
+        scoreB: 0,
+      }),
+    });
+    assert.equal(lockedGameBetResponse.status, 400);
+
+    const pendingGameBetResponse = await fetch(`${worldCupBase}/bets`, {
+      method: 'POST',
+      headers: {
+        ...authenticatedHeaders,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        gameId: betFixtures.pendingGameId,
+        scoreA: 1,
+        scoreB: 0,
+      }),
+    });
+    assert.equal(pendingGameBetResponse.status, 400);
+
+    const otherRegisterResponse = await postJson(`${authBase}/register`, {
+      name: 'Outro Participante',
+      email: `outro-participante-${suffix}@example.com`,
+      password: 'Bolao2026',
+    });
+    assert.equal(otherRegisterResponse.status, 201);
+    const otherRegistration = await otherRegisterResponse.json();
+    const otherUserBetResponse = await fetch(
+      `${worldCupBase}/bets/${betFixtures.editableGameId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${otherRegistration.accessToken}`,
+        },
+      },
+    );
+    assert.equal(otherUserBetResponse.status, 200);
+    assert.deepEqual(await otherUserBetResponse.json(), { bet: null });
+
+    const finalBetsResponse = await fetch(`${worldCupBase}/bets`, {
+      headers: authenticatedHeaders,
+    });
+    assert.equal(finalBetsResponse.status, 200);
+    const finalBets = await finalBetsResponse.json();
+    assert.equal(finalBets.length, 1);
+    assert.equal(finalBets[0].id, createdBet.id);
+
     const invalidLoginPayloadResponse = await postJson(`${authBase}/login`, {
       email: 'email-invalido',
       password: registerPayload.password,
@@ -667,6 +869,14 @@ test('frontend renderiza a página inicial', async () => {
     const copaHtml = await copaResponse.text();
     assert.match(copaHtml, /Dados da Copa/);
     assert.match(copaHtml, /Verificando sua sessão/);
+
+    const palpitesResponse = await fetch(
+      `http://localhost:${frontendPort}/palpites`,
+    );
+    assert.equal(palpitesResponse.status, 200);
+    const palpitesHtml = await palpitesResponse.text();
+    assert.match(palpitesHtml, /Meus palpites/);
+    assert.match(palpitesHtml, /Verificando sua sessão/);
   } finally {
     stopProcess(frontend);
   }

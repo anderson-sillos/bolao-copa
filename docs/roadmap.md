@@ -35,3 +35,10 @@ quando forem priorizados.
   fluxos HTTP, banco e autenticação aumentarem o tamanho do arquivo.
 - Avaliar padronização futura do formato global de erros de validação por campo,
   preservando as mensagens em português.
+
+## CI/CD e governança
+
+- Separar a validação de metadados de PR em um workflow próprio acionado apenas
+  por `pull_request`, mantendo a validação técnica em workflow de
+  `push`/`pull_request`, para evitar checks `Metadata` com status `Skipped` em
+  execuções de push.

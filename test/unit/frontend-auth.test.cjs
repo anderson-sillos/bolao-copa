@@ -36,6 +36,14 @@ const {
   orderKnockoutGamesForBracket,
   splitWorldCupGamesByStage,
 } = require('../../apps/frontend/src/features/world-cup-data/world-cup-data-formatters');
+const {
+  adjustBetScore,
+  createInitialBetFormState,
+  createMatchBetMap,
+  getMatchBetEditStatus,
+  groupMatchBetGamesForDisplay,
+  parseBetScore,
+} = require('../../apps/frontend/src/features/match-bets/match-bets-helpers');
 
 function createJsonResponse(body, status = 400) {
   return new Response(JSON.stringify(body), {
@@ -223,6 +231,146 @@ test('calcula alinhamento vertical das chaves pelo bracket_order', () => {
   assert.equal(game75Top - game73Top, BRACKET_GAME_SLOT_HEIGHT_REM);
   assert.equal(game90Top, (game73Top + game75Top) / 2);
   assert.equal(game104Top, (game101Top + game102Top) / 2);
+});
+
+test('calcula estado de edição e formulário inicial de palpites', () => {
+  const teamA = {
+    id: 'time-a',
+    name: 'Brasil',
+    countryCode: 'BRA',
+    flagIconCode: 'br',
+  };
+  const teamB = {
+    id: 'time-b',
+    name: 'Japão',
+    countryCode: 'JPN',
+    flagIconCode: 'jp',
+  };
+  const futureGame = {
+    ...createGame(1, 'fase_de_grupos'),
+    id: 'jogo-futuro',
+    gameTime: '2026-07-20T12:00:00.000Z',
+    teamA,
+    teamB,
+  };
+  const startedGame = {
+    ...futureGame,
+    id: 'jogo-iniciado',
+    gameTime: '2026-07-01T12:00:00.000Z',
+  };
+  const pendingGame = {
+    ...futureGame,
+    id: 'jogo-pendente',
+    teamB: null,
+  };
+  const bet = {
+    id: 'palpite',
+    gameId: futureGame.id,
+    scoreA: 2,
+    scoreB: 1,
+    createdAt: '2026-07-01T00:00:00.000Z',
+    updatedAt: '2026-07-01T00:00:00.000Z',
+    game: futureGame,
+  };
+
+  assert.equal(
+    getMatchBetEditStatus(futureGame, new Date('2026-07-10T12:00:00.000Z'))
+      .canEdit,
+    true,
+  );
+  assert.equal(
+    getMatchBetEditStatus(startedGame, new Date('2026-07-10T12:00:00.000Z'))
+      .label,
+    'Palpites encerrados',
+  );
+  assert.equal(
+    getMatchBetEditStatus(pendingGame, new Date('2026-07-10T12:00:00.000Z'))
+      .label,
+    'Confronto a definir',
+  );
+
+  const betMap = createMatchBetMap([bet]);
+  assert.equal(betMap.get(futureGame.id), bet);
+  assert.deepEqual(
+    createInitialBetFormState([futureGame, pendingGame], [bet]),
+    {
+      [futureGame.id]: {
+        scoreA: '2',
+        scoreB: '1',
+      },
+      [pendingGame.id]: {
+        scoreA: '',
+        scoreB: '',
+      },
+    },
+  );
+});
+
+test('interpreta placares de palpite como inteiros não negativos', () => {
+  assert.equal(parseBetScore('0'), 0);
+  assert.equal(parseBetScore('12'), 12);
+  assert.equal(parseBetScore(' 3 '), 3);
+  assert.equal(parseBetScore('-1'), null);
+  assert.equal(parseBetScore('1.5'), null);
+  assert.equal(parseBetScore('abc'), null);
+
+  assert.equal(adjustBetScore('', 1), '0');
+  assert.equal(adjustBetScore('', -1), '0');
+  assert.equal(adjustBetScore('0', 1), '1');
+  assert.equal(adjustBetScore('2', -1), '1');
+  assert.equal(adjustBetScore('0', -1), '0');
+});
+
+test('agrupa jogos de palpites por fase e data', () => {
+  const teamA = {
+    id: 'time-a',
+    name: 'Brasil',
+    countryCode: 'BRA',
+    flagIconCode: 'br',
+  };
+  const teamB = {
+    id: 'time-b',
+    name: 'Japão',
+    countryCode: 'JPN',
+    flagIconCode: 'jp',
+  };
+  const groupGame = {
+    ...createGame(2, 'fase_de_grupos'),
+    gameTime: '2026-06-11T23:00:00.000Z',
+    teamA,
+    teamB,
+  };
+  const earlierGroupGame = {
+    ...createGame(1, 'fase_de_grupos'),
+    gameTime: '2026-06-11T16:00:00.000Z',
+    teamA,
+    teamB,
+  };
+  const knockoutGame = {
+    ...createGame(89, 'oitavas'),
+    gameTime: '2026-07-04T18:00:00.000Z',
+    teamA,
+    teamB,
+  };
+
+  const groups = groupMatchBetGamesForDisplay(
+    [knockoutGame, groupGame, earlierGroupGame],
+    new Date('2026-06-10T12:00:00.000Z'),
+  );
+
+  assert.deepEqual(
+    groups.map(group => group.phase),
+    ['fase_de_grupos', 'oitavas'],
+  );
+  assert.equal(groups[0].label, 'Fase de grupos');
+  assert.equal(groups[0].openGamesCount, 2);
+  assert.equal(groups[0].totalGames, 2);
+  assert.deepEqual(
+    groups[0].dateGroups[0].games.map(game => game.matchNumber),
+    [1, 2],
+  );
+  assert.equal(groups[1].openGamesCount, 1);
+  assert.equal(groups[1].dateGroups[0].games[0], knockoutGame);
 });
 
 function createGame(
