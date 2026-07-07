@@ -171,6 +171,16 @@ O repositório oficial está configurado para proteger a `main` com:
 - bloqueio de force push e exclusão da branch;
 - inclusão de administradores nas regras, quando suportado pelo plano.
 
+Os workflows de CI são separados por responsabilidade:
+
+- `Metadata`: roda apenas em eventos de pull request e valida nome da branch e
+  título do PR.
+- `Validate`: roda em pull requests e pushes, executando o contrato técnico com
+  PostgreSQL disponível.
+
+Runs de push não devem apresentar `Metadata` como check ignorado; esse check
+pertence exclusivamente ao fluxo de pull request.
+
 ## Versionamento e releases
 
 Releases seguem Semantic Versioning e usam tags `vMAJOR.MINOR.PATCH`:

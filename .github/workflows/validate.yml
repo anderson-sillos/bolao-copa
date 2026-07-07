@@ -1,4 +1,4 @@
-name: CI
+name: Validate
 
 on:
   push:
@@ -9,35 +9,6 @@ permissions:
   contents: read
 
 jobs:
-  metadata:
-    name: Metadata
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-
-    env:
-      BRANCH_NAME: ${{ github.head_ref }}
-      PR_TITLE: ${{ github.event.pull_request.title }}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: .node-version
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Validate branch name
-        run: npm run validate:branch -- "$BRANCH_NAME"
-
-      - name: Validate pull request title
-        run: printf '%s\n' "$PR_TITLE" | npm run commitlint
-
   validate:
     name: Validate
     runs-on: ubuntu-latest
