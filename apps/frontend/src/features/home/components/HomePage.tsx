@@ -118,6 +118,12 @@ export function HomePage() {
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                   <Link
                     className="rounded-xl bg-emerald-600 px-5 py-3 text-center font-semibold text-white shadow-lg shadow-emerald-600/20 transition hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-200"
+                    href="/palpites"
+                  >
+                    Fazer palpites
+                  </Link>
+                  <Link
+                    className="rounded-xl border border-slate-300 bg-white px-5 py-3 text-center font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-200"
                     href="/copa"
                   >
                     Ver dados da Copa

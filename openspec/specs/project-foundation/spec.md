@@ -36,6 +36,12 @@ de inicialização.
 - **THEN** a aplicação SHALL disponibilizar endpoints autenticados de leitura para
   grupos, seleções e jogos da Copa
 
+#### Scenario: Endpoints autenticados de palpites
+
+- **WHEN** o backend estiver em execução
+- **THEN** a aplicação SHALL disponibilizar endpoints autenticados para consulta,
+  criação e atualização dos palpites do usuário logado
+
 #### Scenario: Inicialização com logs de progresso
 
 - **WHEN** o backend for iniciado em modo de desenvolvimento
@@ -152,6 +158,13 @@ organização inicial para código reutilizável de API, autenticação e featur
 - **THEN** uma página SHALL exigir sessão local antes de renderizar dados de
   grupos, seleções e jogos consumidos da API configurada
 
+#### Scenario: Tela protegida de palpites
+
+- **WHEN** o servidor frontend estiver em execução e a rota protegida de palpites
+  for acessada
+- **THEN** uma página SHALL exigir sessão local antes de permitir consulta,
+  criação ou atualização de palpites consumindo a API configurada
+
 ### Requirement: Política de organização de páginas e componentes
 
 O frontend SHALL manter páginas de rota enxutas e delegar UI, estado e lógica de
@@ -191,11 +204,12 @@ caso de uso para componentes organizados por feature ou por uso compartilhado.
 
 O projeto SHALL fornecer uma suíte de integração executável pela raiz para
 validar a fundação e a compatibilidade da toolchain e da versão TypeORM adotada,
-incluindo configuração, autenticação, dados autenticados da Copa e health check.
+incluindo configuração, autenticação, dados autenticados da Copa, palpites e
+health check.
 
 #### Scenario: Execução da suíte de integração
 
 - **WHEN** `npm run test:foundation` for executado com PostgreSQL disponível
-- **THEN** build, migration, rollback, seed, unicidade de palpites, configuração,
-  autenticação, health check, rotas básicas e dados autenticados da Copa SHALL
-  ser validados em um banco isolado
+- **THEN** build, migration, rollback, seed, unicidade e fluxo autenticado de
+  palpites, configuração, autenticação, health check, rotas básicas e dados
+  autenticados da Copa SHALL ser validados em um banco isolado

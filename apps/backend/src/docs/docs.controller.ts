@@ -264,6 +264,159 @@ const openApiDocument = {
         },
       },
     },
+    '/bets': {
+      get: {
+        summary: 'Lista os palpites do usuário autenticado',
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        responses: {
+          200: {
+            description: 'Palpites do usuário autenticado',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'array',
+                  items: {
+                    $ref: '#/components/schemas/MatchBet',
+                  },
+                },
+              },
+            },
+          },
+          401: {
+            description: 'Token ausente, inválido ou expirado',
+          },
+        },
+      },
+      post: {
+        summary: 'Cria ou atualiza um palpite do usuário autenticado',
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                $ref: '#/components/schemas/SaveMatchBetRequest',
+              },
+            },
+          },
+        },
+        responses: {
+          201: {
+            description: 'Palpite salvo',
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/MatchBet',
+                },
+              },
+            },
+          },
+          400: {
+            description: 'Payload inválido ou jogo indisponível para palpites',
+          },
+          401: {
+            description: 'Token ausente, inválido ou expirado',
+          },
+          404: {
+            description: 'Jogo não encontrado',
+          },
+        },
+      },
+    },
+    '/bets/{gameId}': {
+      get: {
+        summary: 'Consulta o palpite do usuário autenticado para um jogo',
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        parameters: [
+          {
+            name: 'gameId',
+            in: 'path',
+            required: true,
+            schema: {
+              type: 'string',
+              format: 'uuid',
+            },
+          },
+        ],
+        responses: {
+          200: {
+            description: 'Palpite do usuário para o jogo ou null',
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/MatchBetLookup',
+                },
+              },
+            },
+          },
+          401: {
+            description: 'Token ausente, inválido ou expirado',
+          },
+        },
+      },
+      put: {
+        summary: 'Atualiza o palpite do usuário autenticado para um jogo',
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        parameters: [
+          {
+            name: 'gameId',
+            in: 'path',
+            required: true,
+            schema: {
+              type: 'string',
+              format: 'uuid',
+            },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                $ref: '#/components/schemas/UpdateMatchBetRequest',
+              },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: 'Palpite atualizado',
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/MatchBet',
+                },
+              },
+            },
+          },
+          400: {
+            description: 'Payload inválido ou jogo indisponível para palpites',
+          },
+          401: {
+            description: 'Token ausente, inválido ou expirado',
+          },
+          404: {
+            description: 'Jogo não encontrado',
+          },
+        },
+      },
+    },
     '/health': {
       get: {
         summary: 'Verifica a saúde da API e do PostgreSQL',
@@ -509,6 +662,87 @@ const openApiDocument = {
             allOf: [
               {
                 $ref: '#/components/schemas/WorldCupTeamSummary',
+              },
+            ],
+          },
+        },
+      },
+      SaveMatchBetRequest: {
+        type: 'object',
+        required: ['gameId', 'scoreA', 'scoreB'],
+        properties: {
+          gameId: {
+            type: 'string',
+            format: 'uuid',
+          },
+          scoreA: {
+            type: 'integer',
+            minimum: 0,
+            example: 2,
+          },
+          scoreB: {
+            type: 'integer',
+            minimum: 0,
+            example: 1,
+          },
+        },
+      },
+      UpdateMatchBetRequest: {
+        type: 'object',
+        required: ['scoreA', 'scoreB'],
+        properties: {
+          scoreA: {
+            type: 'integer',
+            minimum: 0,
+            example: 2,
+          },
+          scoreB: {
+            type: 'integer',
+            minimum: 0,
+            example: 1,
+          },
+        },
+      },
+      MatchBet: {
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string',
+            format: 'uuid',
+          },
+          gameId: {
+            type: 'string',
+            format: 'uuid',
+          },
+          scoreA: {
+            type: 'integer',
+            minimum: 0,
+          },
+          scoreB: {
+            type: 'integer',
+            minimum: 0,
+          },
+          createdAt: {
+            type: 'string',
+            format: 'date-time',
+          },
+          updatedAt: {
+            type: 'string',
+            format: 'date-time',
+          },
+          game: {
+            $ref: '#/components/schemas/WorldCupGame',
+          },
+        },
+      },
+      MatchBetLookup: {
+        type: 'object',
+        properties: {
+          bet: {
+            nullable: true,
+            allOf: [
+              {
+                $ref: '#/components/schemas/MatchBet',
               },
             ],
           },

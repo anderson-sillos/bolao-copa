@@ -15,6 +15,7 @@ import { RequestContextMiddleware } from './common/request-context.middleware';
 import { DocsController } from './docs/docs.controller';
 import { AuthModule } from './auth/auth.module';
 import { WorldCupDataModule } from './world-cup-data/world-cup-data.module';
+import { MatchBetsModule } from './match-bets/match-bets.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { WorldCupDataModule } from './world-cup-data/world-cup-data.module';
     }),
     AuthModule,
     WorldCupDataModule,
+    MatchBetsModule,
   ],
   controllers: [AppController, HealthController, DocsController],
   providers: [AppService, HealthService],

@@ -59,6 +59,23 @@ Novas telas devem seguir a mesma ideia: página de rota pequena, cliente/helper
 testável quando houver regra de apresentação, e componentes agrupados pela
 feature antes de promover algo para `src/components/`.
 
+## Feature de palpites
+
+A rota `apps/frontend/pages/palpites.tsx` também segue a política de página
+enxuta: ela compõe `MatchBetsPage`, enquanto carregamento, salvamento e estados
+de formulário ficam em `apps/frontend/src/features/match-bets/`.
+
+Convenções aplicadas nessa feature:
+
+- `match-bets-client.ts`: chamadas à API de palpites usando `apiFetch` e token
+  explícito;
+- `match-bets-types.ts`: contratos consumidos pela tela, alinhados aos DTOs
+  públicos da API;
+- `match-bets-helpers.ts`: helpers testáveis para estado de edição, formulário
+  inicial e parsing de placar;
+- `components/`: componentes semânticos da feature, como a página protegida e o
+  card de palpite por jogo.
+
 ## Autenticação no frontend
 
 O fluxo atual é intencionalmente simples para validar a integração ponta a ponta:
