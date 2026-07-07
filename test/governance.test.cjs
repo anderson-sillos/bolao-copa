@@ -1,12 +1,19 @@
 const assert = require('node:assert/strict');
 const { spawnSync } = require('node:child_process');
-const { existsSync, mkdtempSync, rmSync, writeFileSync } = require('node:fs');
+const {
+  existsSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} = require('node:fs');
 const { test } = require('node:test');
 const { tmpdir } = require('node:os');
 const path = require('node:path');
 
 const rootDir = process.cwd();
 const branchValidator = path.join(rootDir, 'scripts/validate-branch-name.cjs');
+const workflowsDir = path.join(rootDir, '.github/workflows');
 const commitlintCli = path.join(
   path.dirname(require.resolve('@commitlint/cli')),
   'cli.js',
@@ -33,6 +40,10 @@ function validateCommit(message) {
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }
+}
+
+function readWorkflow(fileName) {
+  return readFileSync(path.join(workflowsDir, fileName), 'utf8');
 }
 
 test('aceita branches permanentes, de trabalho e automação', () => {
@@ -76,4 +87,30 @@ test('rejeita mensagens fora da convenção', () => {
   ]) {
     assert.notEqual(validateCommit(message).status, 0, message);
   }
+});
+
+test('workflows separam metadados de PR da validação técnica', () => {
+  assert.equal(existsSync(path.join(workflowsDir, 'ci.yml')), false);
+  assert.equal(existsSync(path.join(workflowsDir, 'metadata.yml')), true);
+  assert.equal(existsSync(path.join(workflowsDir, 'validate.yml')), true);
+
+  const metadataWorkflow = readWorkflow('metadata.yml');
+  const validateWorkflow = readWorkflow('validate.yml');
+
+  assert.match(metadataWorkflow, /^name: Metadata$/m);
+  assert.match(metadataWorkflow, /^\s{2}pull_request:$/m);
+  assert.doesNotMatch(metadataWorkflow, /^\s{2}push:$/m);
+  assert.match(metadataWorkflow, /^\s{4}name: Metadata$/m);
+  assert.match(metadataWorkflow, /npm run validate:branch -- "\$BRANCH_NAME"/);
+  assert.match(
+    metadataWorkflow,
+    /printf '%s\\n' "\$PR_TITLE" \| npm run commitlint/,
+  );
+
+  assert.match(validateWorkflow, /^name: Validate$/m);
+  assert.match(validateWorkflow, /^\s{2}push:$/m);
+  assert.match(validateWorkflow, /^\s{2}pull_request:$/m);
+  assert.match(validateWorkflow, /^\s{4}name: Validate$/m);
+  assert.match(validateWorkflow, /image: postgres:15/);
+  assert.match(validateWorkflow, /npm run ci:runner/);
 });
