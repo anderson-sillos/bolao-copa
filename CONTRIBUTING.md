@@ -167,7 +167,8 @@ O repositório oficial está configurado para proteger a `main` com:
 - merge commit e rebase merge desabilitados; squash merge habilitado;
 - branches atualizadas antes do merge;
 - conversas resolvidas;
-- checks obrigatórios `Metadata` e `Validate`;
+- checks obrigatórios `Metadata`, `Format`, `Lint`, `Build`, `Governance`,
+  `Coverage`, `Foundation` e `Audit`;
 - bloqueio de force push e exclusão da branch;
 - inclusão de administradores nas regras, quando suportado pelo plano.
 
@@ -176,7 +177,14 @@ Os workflows de CI são separados por responsabilidade:
 - `Metadata`: roda apenas em eventos de pull request e valida nome da branch e
   título do PR.
 - `Validate`: roda em pull requests e pushes, executando o contrato técnico com
-  PostgreSQL disponível.
+  checks granulares:
+  - `Format`: valida formatação com Prettier.
+  - `Lint`: valida ESLint com zero warnings.
+  - `Build`: executa builds dos workspaces.
+  - `Governance`: valida convenções de branches, commits e workflows.
+  - `Coverage`: executa cobertura unitária mínima.
+  - `Foundation`: executa testes de integração com PostgreSQL disponível.
+  - `Audit`: executa auditoria de dependências.
 
 Runs de push não devem apresentar `Metadata` como check ignorado; esse check
 pertence exclusivamente ao fluxo de pull request.

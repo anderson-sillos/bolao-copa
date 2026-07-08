@@ -46,6 +46,10 @@ function readWorkflow(fileName) {
   return readFileSync(path.join(workflowsDir, fileName), 'utf8');
 }
 
+function countMatches(text, pattern) {
+  return [...text.matchAll(pattern)].length;
+}
+
 test('aceita branches permanentes, de trabalho e automação', () => {
   for (const branch of [
     'main',
@@ -110,7 +114,29 @@ test('workflows separam metadados de PR da validação técnica', () => {
   assert.match(validateWorkflow, /^name: Validate$/m);
   assert.match(validateWorkflow, /^\s{2}push:$/m);
   assert.match(validateWorkflow, /^\s{2}pull_request:$/m);
-  assert.match(validateWorkflow, /^\s{4}name: Validate$/m);
+  assert.match(validateWorkflow, /^\s{4}name: Format$/m);
+  assert.match(validateWorkflow, /^\s{4}name: Lint$/m);
+  assert.match(validateWorkflow, /^\s{4}name: Build$/m);
+  assert.match(validateWorkflow, /^\s{4}name: Governance$/m);
+  assert.match(validateWorkflow, /^\s{4}name: Coverage$/m);
+  assert.match(validateWorkflow, /^\s{4}name: Foundation$/m);
+  assert.match(validateWorkflow, /^\s{4}name: Audit$/m);
+  assert.equal(countMatches(validateWorkflow, /actions\/checkout@v7/g), 7);
+  assert.equal(countMatches(validateWorkflow, /actions\/setup-node@v6/g), 7);
+  assert.equal(
+    countMatches(validateWorkflow, /node-version-file: \.node-version/g),
+    7,
+  );
+  assert.equal(countMatches(validateWorkflow, /cache: npm/g), 7);
+  assert.equal(countMatches(validateWorkflow, /run: npm ci/g), 7);
   assert.match(validateWorkflow, /image: postgres:15/);
-  assert.match(validateWorkflow, /npm run ci:runner/);
+  assert.equal(countMatches(validateWorkflow, /image: postgres:15/g), 1);
+  assert.match(validateWorkflow, /npm run format:check/);
+  assert.match(validateWorkflow, /npm run lint/);
+  assert.match(validateWorkflow, /npm run build/);
+  assert.match(validateWorkflow, /npm run test:governance/);
+  assert.match(validateWorkflow, /npm run test:coverage/);
+  assert.match(validateWorkflow, /npm run test:foundation:ci/);
+  assert.match(validateWorkflow, /npm run audit/);
+  assert.doesNotMatch(validateWorkflow, /npm run ci:runner/);
 });
