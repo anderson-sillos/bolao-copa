@@ -7,17 +7,19 @@ Este arquivo registra o estado atual do projeto e as principais decisões tomada
 - Repositório GitHub: `anderson-sillos/bolao-copa`.
 - Branch principal: `main`.
 - Estado local esperado: `main` alinhada com `origin/main`.
-- CI/CD ativo via GitHub Actions.
+- CI/CD ativo via GitHub Actions com checks granulares.
 - Dependabot ativo e PRs recentes de dependências mesclados.
-- Último commit observado na criação deste arquivo:
-  - `138324a chore(deps): bump the npm-minor-patch group across 1 directory with 6 updates (#24)`
+- Último commit observado nesta atualização:
+  - `cdc6b07 ci: granulariza checks tecnicos (#30)`
+- Workspace atual usado pelo Codex:
+  - `/home/anderson/projetos/bolao-copa`
 
 ## Ambiente recomendado
 
 O projeto deve ser trabalhado preferencialmente dentro do filesystem nativo do WSL, por exemplo:
 
 ```bash
-/home/anderson/Projetos/bolao-copa
+/home/anderson/projetos/bolao-copa
 ```
 
 Evitar desenvolvimento contínuo em:
@@ -48,11 +50,27 @@ npm ci
 npm run ci:runner
 ```
 
-Durante a última validação local em `/mnt/c`, o `npm ci` concluiu com sucesso:
+Validações usadas nas últimas changes:
 
-- `598 packages` instalados;
-- `0 vulnerabilities`;
-- aviso de scripts pendentes para análise via `npm approve-scripts`.
+```bash
+npm run format:check
+npm run lint
+npm run build
+npm run test:governance
+npm run test:coverage
+npm run test:foundation
+npm run audit
+openspec validate --all --strict
+```
+
+Observações recentes:
+
+- `npm run build` pode falhar dentro do sandbox do Codex por restrição ao
+  Turbopack criar processo/bind de porta; fora do sandbox validou com sucesso.
+- `npm run audit` pode exigir rede; quando executado com acesso de rede,
+  retornou `0 vulnerabilities`.
+- `npm run test:foundation` usa Docker/PostgreSQL e validou build, migração,
+  rollback, seed e testes de integração.
 
 Avisos observados:
 
@@ -112,6 +130,48 @@ Itens registrados para roadmap/futuro:
 - Fases eliminatórias usam `bracket_order` no seed para controlar a ordem visual das chaves.
 - Chaveamento possui navegação horizontal e alinhamento dinâmico entre fases.
 
+### Palpites
+
+- Fluxo autenticado de palpites implementado.
+- Tela de palpites permite informar placar por time usando dois campos
+  individuais.
+- Lista de jogos foi agrupada para evitar uma lista única extensa.
+- Quadros de jogos exibem feedback de aberto/fechado no botão de visualização.
+- Quadros iniciam fechados quando não há jogo aberto para palpite.
+- Inputs de placar não usam placeholder `0`, evitando confusão com valor
+  informado.
+- Botões de incremento/decremento assumem `0` no primeiro clique quando o campo
+  ainda está vazio.
+- Seed da Copa 2026 foi resincronizado a partir de
+  `openfootball/worldcup.json`.
+
+### CI/CD
+
+- Workflow `Metadata` roda apenas em eventos de pull request e valida:
+  - nome da branch;
+  - título do PR via Commitlint.
+- Workflow `Validate` roda em push e pull request com checks granulares:
+  - `Format`;
+  - `Lint`;
+  - `Build`;
+  - `Governance`;
+  - `Coverage`;
+  - `Foundation`;
+  - `Audit`.
+- `Metadata` não aparece mais como check skipped em push.
+- `Foundation` é o único job que declara PostgreSQL como service container.
+- Branch protection da `main` foi atualizada para exigir:
+  - `Metadata`;
+  - `Format`;
+  - `Lint`;
+  - `Build`;
+  - `Governance`;
+  - `Coverage`;
+  - `Foundation`;
+  - `Audit`.
+- O check antigo `Validate` não deve ficar como required check na branch
+  protection.
+
 ## OpenSpec
 
 O projeto segue abordagem OpenSpec para mudanças relevantes.
@@ -127,6 +187,9 @@ Changes arquivadas relevantes:
 - `melhorar-validacao-docs-debug`
 - `implementar-ui-autenticacao`
 - `exibir-dados-copa`
+- `implementar-palpites-jogos`
+- `melhorar-workflows-ci`
+- `granularizar-workflows-ci`
 
 Specs principais:
 
@@ -138,6 +201,7 @@ Specs principais:
 - `openspec/specs/world-cup-data/spec.md`
 - `openspec/specs/typeorm-compatibility/spec.md`
 - `openspec/specs/typescript-toolchain/spec.md`
+- `openspec/specs/match-bets/spec.md`
 
 Para próximas mudanças, manter o ciclo:
 
@@ -148,6 +212,16 @@ Para próximas mudanças, manter o ciclo:
 5. verificar;
 6. arquivar a change no mesmo PR, quando possível.
 
+Ritual acordado para fechamento de PR:
+
+1. confirmar checks verdes;
+2. arquivar a change OpenSpec no mesmo PR;
+3. fazer squash merge;
+4. voltar para `main`;
+5. atualizar `main`;
+6. remover branch de trabalho local/remota quando aplicável;
+7. confirmar estado limpo.
+
 ## Governança Git
 
 - Branch principal: `main`.
@@ -156,6 +230,8 @@ Para próximas mudanças, manter o ciclo:
 - Dependabot está configurado para atualizar dependências.
 - `package-lock.json` deve permanecer versionado.
 - Estratégia acordada: quando possível, arquivar a change OpenSpec no mesmo PR da implementação.
+- Branches de trabalho recentes usam prefixos como `feat/` ou `ci/` e devem ser
+  removidas após o merge.
 
 ## PRs recentes
 
@@ -165,20 +241,29 @@ PRs mesclados recentemente:
 - `#24` Dependabot: npm minor/patch group.
 - `#25` Dependabot: `@types/node`.
 - `#26` Feature: exibir dados autenticados da Copa.
+- `#27` Docs: registra contexto de trabalho do Codex.
+- `#28` Feature: implementa fluxo autenticado de palpites.
+- `#29` CI: separa workflows de metadata e validação.
+- `#30` CI: granulariza checks técnicos.
 
-No momento da criação deste arquivo, não havia PR aberto.
+No momento desta atualização, não havia PR aberto e a `main` local estava
+alinhada com `origin/main`.
 
 ## Próximos passos sugeridos
 
-1. Migrar o clone para o filesystem nativo do WSL.
-2. Abrir o projeto pelo VS Code conectado ao WSL.
-3. Rodar `npm ci`.
-4. Rodar `npm run ci:runner`.
-5. Criar a próxima change OpenSpec antes de implementar novas funcionalidades.
+1. Criar a próxima change OpenSpec antes de implementar novas funcionalidades.
+2. Considerar como próxima frente `gerenciar-grupos-bolao`.
+3. Modelar grupos de bolão, participantes e convites antes de ranking.
+4. Depois implementar regras de pontuação.
+5. Em seguida implementar ranking por grupo de bolão.
 
 Possíveis próximas frentes:
 
 - Regras de bolões e participantes.
+- Grupos de bolão, participantes, convites, dono/admin e associação de palpites
+  ao grupo.
+- Ranking por grupo de bolão.
+- Regras de pontuação dos palpites.
 - Melhorias de segurança de sessão e autenticação.
 - Refinamentos de UX nas telas autenticadas.
 - Revisão dos scripts pendentes do npm via `npm approve-scripts`.
