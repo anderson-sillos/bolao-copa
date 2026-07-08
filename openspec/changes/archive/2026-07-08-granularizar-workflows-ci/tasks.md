@@ -32,10 +32,8 @@
 - [x] 5.4 Executar `npm run test:coverage`.
 - [x] 5.5 Executar `openspec validate --all --strict`.
 
-## 6. PR e fechamento
+## 6. PR e archive
 
-- [ ] 6.1 Commitar e enviar a branch para o remoto.
-- [ ] 6.2 Abrir PR e confirmar checks granulares no GitHub Actions.
-- [ ] 6.3 Arquivar a change após validação dos checks reais.
-- [ ] 6.4 Fazer merge do PR por squash.
-- [ ] 6.5 Voltar para `main`, atualizar `main` e remover a branch de trabalho local.
+- [x] 6.1 Commitar e enviar a branch para o remoto.
+- [x] 6.2 Abrir PR e confirmar checks granulares no GitHub Actions.
+- [x] 6.3 Arquivar a change após validação dos checks reais.
